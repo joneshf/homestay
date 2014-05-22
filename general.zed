@@ -22,13 +22,31 @@ We need to know general information about all of the users in the system:
   [ Email, Password, FirstName, LastName ]
 \end{zed}
 
+\begin{zed}
+  Month ::= January \\
+  \t1 | February \\
+  \t1 | March \\
+  \t1 | April \\
+  \t1 | May \\
+  \t1 | June \\
+  \t1 | July \\
+  \t1 | August \\
+  \t1 | September \\
+  \t1 | October \\
+  \t1 | November \\
+  \t1 | December \\
+  Day == \nat \\
+  Year == \nat
+\end{zed}
+
 Using these basic types we construct more complex types in the system.
 The applicant is the user of the system.
 Password tokens are used to reset the password.
 
 \begin{zed}
   Applicant == Email \cross Password \cross FirstName \cross LastName \\
-  PToken == \nat \cross Email
+  PToken == \nat \cross Email \\
+  Date == Month \cross Day \cross Year
 \end{zed}
 
 We need to be able to notify the user of what is happening in the application.
@@ -38,30 +56,10 @@ So, we enumerate the possible responses from actions taken.
   Response ::= \\
   \t1 InvalidToken \\
   \t1 | PasswordResetSuccessful \\
-  \t1 | LoginSuccessful
+  \t1 | LoginSuccessful \\
+  \t1 | InvalidAvailability \\
+  \t1 | ValidAvailability
 \end{zed}
-
-We want an easy way to update an applicant.
-This helper function updates the applicant in the set of all applicants,
-identified by the email address.
-
-\newcommand{\Update}{\mathbin{\otimes}}
-%%Zinchar \Update U+229A;
-\begin{zed}
-  \function 42 \leftassoc ( \varg \Update \varg )
-\end{zed}
-\begin{axdef}
-  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
-\where
-  \forall a_1 : Applicant ; as : \power Applicant @ \\
-  \t1 \exists p_0, p_1 : Password; \\
-  \t1 fn_0, fn_1 : FirstName; \\
-  \t1 ln_0, ln_1 : LastName; \\
-  \t1 e : Email; \\
-  \t1 a_0 : Applicant | \\
-  \t2 a_1 = (e, p_1, fn_1, ln_1) \land (a_0 = (e, p_0, fn_0, ln_0) \in as) @ \\
-  \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
-\end{axdef}
 
 Our initial state is just a bunch of empty sets.
 
@@ -87,3 +85,83 @@ and that the password tokens are either valid or invalid.
   \t1 e_0 = e_1 \implies (p_0 = p_1 \land fn_0 = fn_1 \land ln_0 = ln_1) \\
   Valid \cap Invalid = \emptyset
 \end{schema}
+
+\subsection{General Operators}
+
+It gets kind of silly to have to rewrite these operators and functions each time,
+so we have some helpers here.
+
+We want an easy way to update an applicant.
+This helper function updates the applicant in the set of all applicants,
+identified by the email address.
+
+\newcommand{\Update}{\mathbin{\otimes}}
+%%Zinchar \Update U+229A;
+\begin{zed}
+  \function 42 \leftassoc ( \varg \Update \varg )
+\end{zed}
+\begin{axdef}
+  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
+\where
+  \forall a_1 : Applicant ; as : \power Applicant @ \\
+  \t1 \exists p_0, p_1 : Password; \\
+  \t1 fn_0, fn_1 : FirstName; \\
+  \t1 ln_0, ln_1 : LastName; \\
+  \t1 e : Email; \\
+  \t1 a_0 : Applicant | \\
+  \t2 a_1 = (e, p_1, fn_1, ln_1) \land (a_0 = (e, p_0, fn_0, ln_0) \in as) @ \\
+  \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
+\end{axdef}
+
+\begin{gendef}[X, Y, Z]
+  firstOf3 == \lambda x : X; y : Y; z : Z @ x \\
+  secondOf3 == \lambda x : X; y : Y; z : Z @ y \\
+  thirdOf3 == \lambda x : X; y : Y; z : Z @ z
+\end{gendef}
+
+\begin{gendef}[ X, Y, Z ]
+  updateFirstOf3 : (X \cross Y \cross Z) \cross X \fun X \cross Y \cross Z
+\where
+  \forall xyz : X \cross Y \cross Z; x : X @ \\
+  \t1 \exists x_0 : X; y : Y; z : Z | xyz = (x_0, y, z) @ \\
+  \t2  updateFirstOf3 (xyz, x) = (x, y, z)
+\end{gendef}
+
+\begin{gendef}[ X, Y, Z ]
+  updateSecondOf3 : (X \cross Y \cross Z) \cross Y \fun X \cross Y \cross Z
+\where
+  \forall xyz : X \cross Y \cross Z; y : Y @ \\
+  \t1 \exists x : X; y_0 : Y; z : Z | xyz = (x, y_0, z) @ \\
+  \t2  updateSecondOf3 (xyz, y) = (x, y, z)
+\end{gendef}
+
+\begin{gendef}[ X, Y, Z ]
+  updateThirdOf3 : (X \cross Y \cross Z) \cross Z \fun X \cross Y \cross Z
+\where
+  \forall xyz : X \cross Y \cross Z; z : Z @ \\
+  \t1 \exists x : X; y : Y; z_0 : Z | xyz = (x, y, z_0) @ \\
+  \t2  updateThirdOf3 (xyz, z) = (x, y, z)
+\end{gendef}
+
+We're going to Greenspun up some stuff.
+
+\begin{zed}
+  Ord ::= LT | EQ | GT
+\end{zed}
+
+\begin{axdef}
+  month2Nat : Month \fun \nat
+\where
+  month2Nat \ January    = 1  \land \\
+  month2Nat \ February   = 2  \land \\
+  month2Nat \ March      = 3  \land \\
+  month2Nat \ April      = 4  \land \\
+  month2Nat \ May        = 5  \land \\
+  month2Nat \ June       = 6  \land \\
+  month2Nat \ July       = 7  \land \\
+  month2Nat \ August     = 8  \land \\
+  month2Nat \ September  = 9  \land \\
+  month2Nat \ October    = 10 \land \\
+  month2Nat \ November   = 11 \land \\
+  month2Nat \ December   = 12
+\end{axdef}

@@ -1,7 +1,8 @@
 \contentsline {section}{\numberline {1}General}{2}
-\contentsline {section}{\numberline {2}Login}{4}
-\contentsline {section}{\numberline {3}Student}{6}
-\contentsline {section}{\numberline {4}Host}{7}
-\contentsline {section}{\numberline {5}Administrator}{8}
-\contentsline {section}{\numberline {6}Group Chat}{9}
-\contentsline {section}{\numberline {7}Profile}{10}
+\contentsline {subsection}{\numberline {1.1}General Operators}{3}
+\contentsline {section}{\numberline {2}Login}{6}
+\contentsline {section}{\numberline {3}Student}{8}
+\contentsline {section}{\numberline {4}Host}{9}
+\contentsline {section}{\numberline {5}Administrator}{11}
+\contentsline {section}{\numberline {6}Group Chat}{12}
+\contentsline {section}{\numberline {7}Profile}{13}
