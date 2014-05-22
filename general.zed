@@ -1,0 +1,89 @@
+\section{General}
+\begin{zsection}
+  \SECTION general \parents homestay
+\end{zsection}
+
+We want to have a few basic types here.
+We need to know general information about all of the users in the system:
+\begin{itemize}
+  \item Email address, this is the unique identifier in the system
+  \item Password, this has restrictions:
+   \begin{itemize}
+     \item At least 8 characters in length
+     \item 1 digit
+     \item 1 uppercase character
+     \item 1 lowercase character
+   \end{itemize}
+  \item First name, should be non-empty
+  \item Last name, should be non-empty
+\end{itemize}
+
+\begin{zed}
+  [ Email, Password, FirstName, LastName ]
+\end{zed}
+
+Using these basic types we construct more complex types in the system.
+The applicant is the user of the system.
+Password tokens are used to reset the password.
+
+\begin{zed}
+  Applicant == Email \cross Password \cross FirstName \cross LastName \\
+  PToken == \nat \cross Email
+\end{zed}
+
+We need to be able to notify the user of what is happening in the application.
+So, we enumerate the possible responses from actions taken.
+
+\begin{zed}
+  Response ::= \\
+  \t1 InvalidToken \\
+  \t1 | PasswordResetSuccessful \\
+  \t1 | LoginSuccessful
+\end{zed}
+
+We want an easy way to update an applicant.
+This helper function updates the applicant in the set of all applicants,
+identified by the email address.
+
+\newcommand{\Update}{\mathbin{\otimes}}
+%%Zinchar \Update U+229A;
+\begin{zed}
+  \function 42 \leftassoc ( \varg \Update \varg )
+\end{zed}
+\begin{axdef}
+  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
+\where
+  \forall a_1 : Applicant ; as : \power Applicant @ \\
+  \t1 \exists p_0, p_1 : Password; \\
+  \t1 fn_0, fn_1 : FirstName; \\
+  \t1 ln_0, ln_1 : LastName; \\
+  \t1 e : Email; \\
+  \t1 a_0 : Applicant | \\
+  \t2 a_1 = (e, p_1, fn_1, ln_1) \land (a_0 = (e, p_0, fn_0, ln_0) \in as) @ \\
+  \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
+\end{axdef}
+
+Our initial state is just a bunch of empty sets.
+
+\begin{schema}{HomestayInitial}
+  Applicants : \power Applicant \\
+  Emails : \power Email \\
+  Passwords : \power Password \\
+  Valid, Invalid : \power PToken \\
+\where
+  Applicants = \emptyset \\
+  Emails = \emptyset \\
+  Passwords = \emptyset \\
+  Valid = Invalid = \emptyset \\
+\end{schema}
+
+In the database we need to ensure that there is each email address is unique,
+and that the password tokens are either valid or invalid.
+
+\begin{schema}{HomestayDatabase}
+  HomestayInitial
+\where
+  \forall e_0, e_1 : Email; p_0, p_1 : Password; fn_0, fn_1 : FirstName; ln_0, ln_1 : LastName @ \\
+  \t1 e_0 = e_1 \implies (p_0 = p_1 \land fn_0 = fn_1 \land ln_0 = ln_1) \\
+  Valid \cap Invalid = \emptyset
+\end{schema}
