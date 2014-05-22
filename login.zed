@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{czt}
+
+\begin{document}
+\begin{zed}
+  [ Email, Password, FirstName, LastName, Applicant ]
+\end{zed}
+
+\begin{schema}{HomestayInitial}
+  Applicants : \power Applicant\\
+  Emails : \power Email\\
+  Passwords : \power Password\\
+  Names : \power (FirstName \cross LastName)
+\where
+  Applicants = \emptyset\\
+  Emails = \emptyset\\
+  Passwords = \emptyset\\
+  Names = \emptyset\\
+\end{schema}
+
+
+This specification describes ...
+
+
+
+\end{document}
