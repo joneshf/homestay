@@ -9,5 +9,10 @@
 
   \include{general}
   \include{login}
+  \include{student_screen}
+  \include{host_screen}
+  \include{admin_screen}
+  \include{group_chat}
+  \include{profile}
 
 \end{document}
