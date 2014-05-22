@@ -6,8 +6,14 @@
   [ Email, Password, FirstName, LastName ]
 \end{zed}
 
+\begin{zed}
+  UserCredential == Email \cross Password\\
+  FullName == FirstName \cross LastName\\
+  Applicant == UserCredential \cross FullName
+\end{zed}
+
 \begin{schema}{HomestayInitial}
-  Applicants : \power (Email \cross Password \cross FirstName \cross LastName)\\
+  Applicants : \power Applicant\\
   Emails : \power Email\\
   Passwords : \power Password\\
   Names : \power (FirstName \cross LastName)
@@ -18,22 +24,41 @@
   Names = \emptyset\\
 \end{schema}
 
+\begin{schema}{HomestayDatabase}
+  HomestayInitial
+\where
+  \dom Applicants = Emails \cross Passwords\\
+  \ran Applicants = Names
+\end{schema}
+
 \begin{schema}{CreateAccount}
-  \Delta HomestayInitial\\
+  \Delta HomestayDatabase\\
   E? : Email\\
   FN? : FirstName\\
   LN? : LastName\\
   P? : Password\\
-  App? : Email \cross Password \cross FirstName \cross LastName \\
-  FullName : FirstName \cross LastName
+  Name : FullName\\
+  User : UserCredential
 \where
   E? \notin Emails\\
-  FullName = FN? \mapsto LN?\\
+  Name = FN? \mapsto LN?\\
+  User = E? \mapsto P?\\
   Emails' = Emails \cup \{E?\}\\
   Passwords' = Passwords \cup \{P?\}\\
-  Names' = Names \cup \{FullName\}\\
-  Applicants' = Applicants \cup \{App?\}
+  Names' = Names \cup \{Name\}\\
+  Applicants' = Applicants \cup \{User \mapsto Name\}
 \end{schema}
+
+\begin{schema}{Login}
+  \Xi HomestayDatabase\\
+  E? : Email\\
+  P? : Password
+\where
+  E? \in Emails\\
+  P? \in Passwords\\
+  E? \mapsto P? \in \dom Applicants
+\end{schema}
+
 
 
 This specification describes ...
