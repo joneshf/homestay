@@ -9,18 +9,41 @@
 \begin{zed}
   UserCredential == Email \cross Password\\
   FullName == FirstName \cross LastName\\
-  Applicant == UserCredential \cross FullName
+  Applicant == UserCredential \cross FullName\\
+  PToken == \nat \cross Applicant
 \end{zed}
+
+% Example of defining an infix function operator, displayed as a double circle. 
+\newcommand{\Update}{\mathbin{\otimes}} 
+% Define the Latex to Unicode mapping (Zchar/Zprechar/Zinchar/Zpostchar) 
+%%Zinchar \Update U+229A;
+% Precedence 42 is a little tighter binding than multiplication, which is 40. 
+\begin{zed} 
+  \function 42 \leftassoc ( \varg \Update \varg ) 
+\end{zed} 
+Next we use an axdef/gendef/freetype/== definition to define the semantics. 
+\begin{axdef} 
+  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
+\where 
+  \forall a : Applicant ; as : \power Applicant @ 
+    \exists p0, p1 : Password; n0, n1 : FullName; e : Email 
+      | a = (e \mapsto p0) \mapsto n0 \land (e \mapsto p1) \mapsto n1 \in as 
+        @ as \Update a = as \setminus \{(e \mapsto p1) \mapsto n1\} \cup \{a\}
+    
+\end{axdef} 
+
 
 \begin{schema}{HomestayInitial}
   Applicants : \power Applicant\\
   Emails : \power Email\\
   Passwords : \power Password\\
+  Valid, Invalid : \power PToken\\
   Names : \power (FirstName \cross LastName)
 \where
   Applicants = \emptyset\\
   Emails = \emptyset\\
   Passwords = \emptyset\\
+  Valid = Invalid = \emptyset\\
   Names = \emptyset\\
 \end{schema}
 
@@ -28,7 +51,8 @@
   HomestayInitial
 \where
   \dom Applicants = Emails \cross Passwords\\
-  \ran Applicants = Names
+  \ran Applicants = Names\\
+  Valid \cap Invalid = \emptyset
 \end{schema}
 
 \begin{schema}{CreateAccount}
@@ -59,6 +83,38 @@
   E? \mapsto P? \in \dom Applicants
 \end{schema}
 
+\begin{schema}{ForgotPassword}
+  \Delta HomestayDatabase\\
+  E? : Email\\
+  App : Applicant\\
+  T : PToken\\
+  ID : \nat\\
+  P : Password
+\where
+  E? \in Emails\\
+  \{App\} = \{E? \mapsto P\} \dres Applicants\\
+  ID = \# Valid + \# Invalid + 1\\
+  T = ID \mapsto App\\
+  Valid' = Valid \cup \{T\}
+\end{schema}
+
+\begin{schema}{ResetPassword}
+  \Delta HomestayDatabase\\
+  P?, P : Password\\
+  T? : PToken\\
+  ID : \nat\\
+  User : UserCredential\\
+  E : Email\\
+  Name : FullName\\
+  App : Applicant
+\where
+  T? \in Valid \\
+  ID \mapsto ((E \mapsto P) \mapsto Name) = T?\\
+  Valid' = Valid \setminus \{T?\}\\
+  Invalid' = Invalid \cup \{T?\}\\
+  App = (E \mapsto P?) \mapsto Name\\
+  Applicants' = Applicants \Update App
+\end{schema}
 
 
 This specification describes ...
