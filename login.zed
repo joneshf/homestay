@@ -3,11 +3,11 @@
 
 \begin{document}
 \begin{zed}
-  [ Email, Password, FirstName, LastName, Applicant ]
+  [ Email, Password, FirstName, LastName ]
 \end{zed}
 
 \begin{schema}{HomestayInitial}
-  Applicants : \power Applicant\\
+  Applicants : \power (Email \cross Password \cross FirstName \cross LastName)\\
   Emails : \power Email\\
   Passwords : \power Password\\
   Names : \power (FirstName \cross LastName)
@@ -16,6 +16,23 @@
   Emails = \emptyset\\
   Passwords = \emptyset\\
   Names = \emptyset\\
+\end{schema}
+
+\begin{schema}{CreateAccount}
+  \Delta HomestayInitial\\
+  E? : Email\\
+  FN? : FirstName\\
+  LN? : LastName\\
+  P? : Password\\
+  App? : Email \cross Password \cross FirstName \cross LastName \\
+  FullName : FirstName \cross LastName
+\where
+  E? \notin Emails\\
+  FullName = FN? \mapsto LN?\\
+  Emails' = Emails \cup \{E?\}\\
+  Passwords' = Passwords \cup \{P?\}\\
+  Names' = Names \cup \{FullName\}\\
+  Applicants' = Applicants \cup \{App?\}
 \end{schema}
 
 
