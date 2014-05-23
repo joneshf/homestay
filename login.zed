@@ -8,6 +8,15 @@ We update all of our sets to reflect the new addition.
 After they have successfully created an account,
 they are taken to the main menu.
 
+A person can create either a user account, or they can create an admin account.
+The idea is that the admin account isn't something that you can specify,
+but you must be given a link to sign up for.
+The link you follow gives the admin flag.
+
+\begin{zed}
+  CreateAccount == CreateUserAccount \lor CreateAdminAccount
+\end{zed}
+
 \begin{schema}{CreateUserAccount}
   \Delta HomestayDatabase \\
   E? : Email \\
