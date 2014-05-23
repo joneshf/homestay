@@ -51,23 +51,18 @@ their accept/reject match to the admin, the admin will have final approval to ac
   Invalid' = Invalid
 \end{schema}
 
-\begin{schema}{Hat2DaBack}
+\begin{schema}{InappropriateUser}
   \Delta HomestayDatabase \\
   M? : Message \\
   E? : Email   \\
   I : IFlag \\
-  In, In2 : InappropriateFlag
+  In, In2 : InappropriateFlag \\
+  RemoveUser
 \where
   M? = Inappropriate \\
   \{E? \mapsto In\} = \{E?\} \dres IFlags \\
   In \neq Remove \\
   In2 = Nat2InFlag ((InFlag2Nat \ In) + 1) \\
   IFlags' = IFlags \oplus \{E? \mapsto In2\} \\
-  In2 = Remove \\
-  
-  Applicants' = Applicants\\
-  Emails' = Emails\\
-  Passwords' = Passwords \\
-  Valid' = Valid \\
-  Invalid' = Invalid
+  In2 = Remove
 \end{schema}
