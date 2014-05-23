@@ -8,7 +8,7 @@ We update all of our sets to reflect the new addition.
 After they have successfully created an account,
 they are taken to the main menu.
 
-\begin{schema}{CreateAccount}
+\begin{schema}{CreateUserAccount}
   \Delta HomestayDatabase \\
   E? : Email \\
   FN? : FirstName \\
@@ -18,7 +18,24 @@ they are taken to the main menu.
   E? \notin Emails \\
   Emails' = Emails \cup \{E?\}\\
   Passwords' = Passwords \cup \{P?\}\\
-  Applicants' = Applicants \cup \{(E?, P?, FN?, LN?)\} \\
+  Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, NotAdmin)\} \\
+  Valid' = Valid \\
+  Invalid' = Invalid
+\end{schema}
+
+\begin{schema}{CreateAdminAccount}
+  \Delta HomestayDatabase \\
+  E? : Email \\
+  FN? : FirstName \\
+  LN? : LastName \\
+  P? : Password \\
+  AD? : AdminFlag
+\where
+  E? \notin Emails \\
+  AD? = Admin \\
+  Emails' = Emails \cup \{E?\}\\
+  Passwords' = Passwords \cup \{P?\}\\
+  Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, AD?)\} \\
   Valid' = Valid \\
   Invalid' = Invalid
 \end{schema}
@@ -32,11 +49,12 @@ At this point they are taken to the main menu.
   P? : Password \\
   FN : FirstName \\
   LN : LastName \\
+  AD : AdminFlag \\
   Resp! : Response
 \where
   E? \in Emails \\
   P? \in Passwords \\
-  (E?, P?, FN, LN) \in Applicants \\
+  (E?, P?, FN, LN, AD) \in Applicants \\
   Resp! = LoginSuccessful
 \end{schema}
 
@@ -54,10 +72,11 @@ Of course, if the email address is already compromised, it doesn't make much dif
   ID : \nat \\
   P : Password \\
   FN : FirstName \\
-  LN : LastName
+  LN : LastName \\
+  AD : AdminFlag
 \where
   E? \in Emails \\
-  (E?, P, FN, LN) \in Applicants \\
+  (E?, P, FN, LN, AD) \in Applicants \\
   ID = \# Valid + \# Invalid + 1 \\
   T! = ID \mapsto E?\\
 
@@ -77,14 +96,15 @@ We let them know that the reset was successful.
   E : Email \\
   FN : FirstName \\
   LN : LastName \\
+  AD : AdminFlag \\
   App_0, App_1 : Applicant
 \where
   T? \in Valid \\
   E = second \ T? \\
   Valid' = Valid \setminus \{T?\}\\
   Invalid' = Invalid \cup \{T?\} \\
-  App_0 = (E, P, FN, LN) \in Applicants \\
-  App_1 = (E, P?, FN, LN) \\
+  App_0 = (E, P, FN, LN, AD) \in Applicants \\
+  App_1 = (E, P?, FN, LN, AD) \\
   Applicants' = Applicants \Update App_1 \\
   Resp! = PasswordResetSuccessful
 \end{schema}
