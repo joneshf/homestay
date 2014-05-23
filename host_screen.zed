@@ -89,7 +89,8 @@ Then there are preferences for each host location, e.g. price and availability.
 \end{schema}
 
 \begin{zed}
-  EditHostPreferences == EditHostSmoking \lor EditHostPets
+  EditHostPreferences == EditHostSmoking \lor EditHostPets \lor EditHostChildren \lor EditHostDiet \lor \\
+  EditHostReligion
 \end{zed}
 
 So long as the start date is before the end date,
