@@ -14,7 +14,7 @@ Then there are preferences for each host location, e.g. price and availability.
   S? : Smoking
 \where
   H? \in HostPreferences \\
-  H = updateSecondOf3 (H?, S?) \\
+  H = updateSecondOf6 (H?, S?) \\
   HostPreferences' = updateHostPrefs (HostPreferences, H) \\
   Applicants' = Applicants \\
   Emails' = Emails \\
@@ -30,7 +30,55 @@ Then there are preferences for each host location, e.g. price and availability.
   P? : Pets
 \where
   H? \in HostPreferences \\
-  H = updateThirdOf3 (H?, P?) \\
+  H = updateThirdOf6 (H?, P?) \\
+  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
+\end{schema}
+
+\begin{schema}{EditHostChildren}
+  \Delta HomestayDatabase \\
+  H?, H : HostPreference \\
+  C? : Children
+\where
+  H? \in HostPreferences \\
+  H = updateFourthOf6 (H?, C?) \\
+  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
+\end{schema}
+
+\begin{schema}{EditHostDiet}
+  \Delta HomestayDatabase \\
+  H?, H : HostPreference \\
+  P? : Pets
+\where
+  H? \in HostPreferences \\
+  H = updateThirdOf6 (H?, P?) \\
+  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
+\end{schema}
+
+\begin{schema}{EditHostReligion}
+  \Delta HomestayDatabase \\
+  H?, H : HostPreference \\
+  P? : Pets
+\where
+  H? \in HostPreferences \\
+  H = updateThirdOf6 (H?, P?) \\
   HostPreferences' = updateHostPrefs (HostPreferences, H) \\
   Applicants' = Applicants \\
   Emails' = Emails \\

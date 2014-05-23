@@ -137,10 +137,13 @@ We want an easy way to update an applicant.
 This helper function updates the applicant in the set of all applicants,
 identified by the email address.
 
-\begin{gendef}[X, Y, Z]
-  firstOf3 == \lambda x : X; y : Y; z : Z @ x \\
-  secondOf3 == \lambda x : X; y : Y; z : Z @ y \\
-  thirdOf3 == \lambda x : X; y : Y; z : Z @ z
+\begin{gendef}[A, B, C, D, E, F]
+  firstOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ a \\
+  secondOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ b \\
+  thirdOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ c \\
+  fourthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ d \\
+  fifthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ e \\
+  sixthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ f \\
 \end{gendef}
 
 \begin{gendef}[ A, B, C, D, E, F ]
@@ -264,7 +267,7 @@ We're going to Greenspun up some stuff.
 \where
   \forall hp : HostPreference; hps : \power HostPreference @ \\
   \t1 \exists hp_0 : HostPreference | \\
-  \t2 firstOf3 \ hp_0 = firstOf3 \ hp @ \\
+  \t2 firstOf6 \ hp_0 = firstOf6 \ hp @ \\
   \t3 updateHostPrefs (hps, hp) = (hps \setminus \{hp_0\}) \cup \{hp\}
 \end{axdef}
 
