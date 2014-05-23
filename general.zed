@@ -30,6 +30,7 @@
     , ZipCode \\
     , Phone \\
     , Photo \\
+    , Text
     ]
   \end{zed}
 
@@ -118,7 +119,8 @@
   \begin{zed}
     Applicant == Email \cross Password \cross FirstName \cross LastName \cross AdminFlag \\
     PToken == \nat \cross Email \\
-    IFlag == Email \cross InappropriateFlag
+    IFlag == Email \cross InappropriateFlag \\
+    Message == Applicant \cross Applicant \cross Text
   \end{zed}
 
   Now want to create some stuff specific to the host,
@@ -208,7 +210,6 @@
       \t2 a_1 = (e, p_1, fn_1, ln_1, ad_1) \land (a_0 = (e, p_0, fn_0, ln_0, ad_0) \in as) @ \\
       \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
     \end{axdef}
-
 
   \subsection{General Operators}
 

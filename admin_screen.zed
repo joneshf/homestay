@@ -15,7 +15,7 @@
   \end{zed}
 
   \begin{zed}
-    Message ::= \\
+    AcceptMessage ::= \\
     \t1 OneAccept \\
     \t1 | TwoAccepts \\
     \t1 | NoAccepts \\
@@ -23,7 +23,7 @@
   \end{zed}
 
   \begin{axdef}
-    AdminMatch : Message \pfun MatchFlag
+    AdminMatch : AcceptMessage \pfun MatchFlag
   \where
     AdminMatch \ OneAccept = Reject \land \\
     AdminMatch \ NoAccepts = Reject \land \\
@@ -59,7 +59,7 @@
 
   \begin{schema}{AdminInappropriate}
     \Delta HomestayDatabase \\
-    M? : Message \\
+    M? : AcceptMessage \\
     E? : Email   \\
     I : IFlag \\
     In, In2 : InappropriateFlag
@@ -83,7 +83,7 @@
   \begin{schema}{InappropriateUser}
     \Delta HomestayDatabase \\
     RemoveUser \\
-    M? : Message \\
+    M? : AcceptMessage \\
     E? : Email   \\
     I : IFlag \\
     In, In2 : InappropriateFlag
