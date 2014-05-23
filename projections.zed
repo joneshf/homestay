@@ -1,0 +1,34 @@
+\subsubsection{General Projections}
+\begin{zsection}
+  \SECTION projections \parents homestay
+\end{zsection}
+
+  \begin{gendef}[A, B, C]
+    firstOf3  == \lambda a : A; b : B; c : C @ a \\
+    secondOf3 == \lambda a : A; b : B; c : C @ b \\
+    thirdOf3  == \lambda a : A; b : B; c : C @ c \\
+  \end{gendef}
+
+  \begin{gendef}[A, B, C, D]
+    firstOf4  == \lambda a : A; b : B; c : C; d : D @ a \\
+    secondOf4 == \lambda a : A; b : B; c : C; d : D @ b \\
+    thirdOf4  == \lambda a : A; b : B; c : C; d : D @ c \\
+    fourthOf4 == \lambda a : A; b : B; c : C; d : D @ d \\
+  \end{gendef}
+
+  \begin{gendef}[A, B, C, D, E]
+    firstOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ a \\
+    secondOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ b \\
+    thirdOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ c \\
+    fourthOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ d \\
+    fifthOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ e \\
+  \end{gendef}
+
+  \begin{gendef}[A, B, C, D, E, F]
+    firstOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ a \\
+    secondOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ b \\
+    thirdOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ c \\
+    fourthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ d \\
+    fifthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ e \\
+    sixthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ f \\
+  \end{gendef}
