@@ -20,6 +20,7 @@ they are taken to the main menu.
   Passwords' = Passwords \cup \{P?\}\\
   Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, NotAdmin)\} \\
   PhoneNumbers' = PhoneNumbers \\
+  UserPhoto' = UserPhoto \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings \\
@@ -40,6 +41,7 @@ they are taken to the main menu.
   Passwords' = Passwords \cup \{P?\}\\
   Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, AD?)\} \\
   PhoneNumbers' = PhoneNumbers \\
+  UserPhoto' = UserPhoto \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Posting \\
@@ -101,6 +103,7 @@ Of course, if the email address is already compromised, it doesn't make much dif
   Emails' = Emails \\
   Passwords' = Passwords \\
   PhoneNumbers' = PhoneNumbers \\
+  UserPhoto' = UserPhoto \\
   Postings' = Postings \\
   HostPreferences' = HostPreferences
 \end{schema}

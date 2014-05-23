@@ -44,13 +44,12 @@ homestay
   * Photo
   * Email
   * Phone number
-  * Street Address
 * GroupChat
   * View chat
     * Add message
     * Approve/disapprove
     * Delete chat
-    * Flag innappropriate
+    * Flag inappropriate
 * AdminScreen
   * View request for chat
     * Create chat with host

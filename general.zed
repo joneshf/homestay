@@ -103,7 +103,8 @@ Does the host want to post the exact location of his/her home or a general area 
 
 \begin{zed}
   Pic ::= AnyPicture \\
-  Photo == Pic \\
+  PostingPhoto == Pic \\
+  UserPhoto == Pic \\
   Phone == \nat \\
 \end{zed}
 
@@ -114,7 +115,7 @@ Does the host want to post the exact location of his/her home or a general area 
   AddressInfo == Address \cross ExactOrArea \\
   Availability == Date \cross Date \\ 
   HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
-  Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross Photo
+  Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
 \end{zed}
 
 Our initial state is just a bunch of empty sets.
@@ -124,6 +125,7 @@ Our initial state is just a bunch of empty sets.
   Emails : \power Email \\
   Passwords : \power Password \\
   PhoneNumbers : \power Phone \\
+  UserPhoto : \power Pic \\
   Valid, Invalid : \power PToken \\
   IFlags : \power IFlag \\
   Postings : \power Posting \\
@@ -133,6 +135,7 @@ Our initial state is just a bunch of empty sets.
   Emails = \emptyset \\
   Passwords = \emptyset \\
   PhoneNumbers = \emptyset \\
+  UserPhoto = \emptyset \\
   Valid = Invalid = \emptyset \\
   IFlags = \emptyset
   Postings = \emptyset \\
@@ -306,7 +309,9 @@ We're going to Greenspun up some stuff.
   Applicants' = Applicants \setminus \{A?\} \\
   Emails' = Emails \setminus \{E\} \\
   HostPreferences' = HostPreferences \\
+  PhoneNumbers' = PhoneNumbers \\
   Passwords' = Passwords \\
+  UserPhoto' = UserPhoto \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings
