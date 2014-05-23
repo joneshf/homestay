@@ -90,11 +90,25 @@ We need to know about the host stuff.
   Religion ::= Agnostic | Athiest | Buddhist | Christian | Catholic | Mormon | Muslim | OtherReligion \\
 \end{zed}
 
+Does the host want to post the exact location of his/her home or a general area where the home exists inside of?
+
+\begin{zed}
+  ExactOrArea ::= ExactLocation | Area \\
+  StreetNumber == \nat \\
+  StreetName ::= SomeStreet\\
+  City ::= SomeCity\\
+  State ::= SomeState\\
+  ZipCode == \nat \\
+\end{zed}
+
 \begin{zed}
   Price == \nat \\
-  Availability == Date \cross Date \\
+  SizeOfRoom == \nat \cross \nat \\
+  Address == StreetNumber \cross StreetName \cross City \cross State \cross ZipCode \\
+  AddressInfo == Address \cross ExactOrArea \\
+  Availability == Date \cross Date \\ 
   HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
-  Posting == HostPreference \cross Availability \cross Price
+  Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
 \end{zed}
 
 Our initial state is just a bunch of empty sets.

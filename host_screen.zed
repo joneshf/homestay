@@ -132,3 +132,28 @@ then no bueno.
 \begin{zed}
   ValiDate == ValiDateGood \lor ValiDateBad
 \end{zed}
+
+%Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
+
+\begin{schema}{NewPosting}
+  P? : Posting \\
+  H : HostPreference \\
+  A? : Address \\
+  AI? : AddressInfo \\
+  E? : ExactOrArea \\
+  SNUM? : StreetNumber \\
+  SNAME? : StreetName \\
+  CITY? : City \\
+  ST? : State \\
+  ZIP? : ZipCode \\
+  S? : SizeOfRoom \\
+  WIDTH? : \nat \\
+  LENGTH? : \nat \\
+  PR? : Price \\
+  AV : Availability
+\where
+  A? = (SNUM?, SNAME?, CITY?, ST?, ZIP?) \\
+  AI? = A? \mapsto E? \\
+  S? = WIDTH? \mapsto LENGTH? \\
+  P? = (H, AI?, S?, PR?, AV) \\
+\end{schema}
