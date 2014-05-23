@@ -45,6 +45,15 @@ We need to know general information about all of the users in the system:
   \t1 | NotAdmin
 \end{zed}
 
+\begin{zed}
+  InappropriateFlag ::= \\
+  \t1 Zero \\
+  \t1 | First \\
+  \t1 | Second \\
+  \t1 | Third \\
+  \t1 | Remove
+\end{zed}
+
 Using these basic types we construct more complex types in the system.
 The applicant is the user of the system.
 Password tokens are used to reset the password.
@@ -52,7 +61,8 @@ Password tokens are used to reset the password.
 \begin{zed}
   Applicant == Email \cross Password \cross FirstName \cross LastName \cross AdminFlag \\
   PToken == \nat \cross Email \\
-  Date == Month \cross Day \cross Year
+  Date == Month \cross Day \cross Year \\
+  IFlag == Email \cross InappropriateFlag
 \end{zed}
 
 We need to be able to notify the user of what is happening in the application.
@@ -74,11 +84,13 @@ Our initial state is just a bunch of empty sets.
   Emails : \power Email \\
   Passwords : \power Password \\
   Valid, Invalid : \power PToken \\
+  IFlags : \power IFlag
 \where
   Applicants = \emptyset \\
   Emails = \emptyset \\
   Passwords = \emptyset \\
   Valid = Invalid = \emptyset \\
+  IFlags = \emptyset
 \end{schema}
 
 In the database we need to ensure that there is each email address is unique,
@@ -172,3 +184,24 @@ We're going to Greenspun up some stuff.
   month2Nat \ November   = 11 \land \\
   month2Nat \ December   = 12
 \end{axdef}
+
+\begin{axdef}
+  InFlag2Nat : InappropriateFlag \fun \nat
+\where
+  InFlag2Nat \ Zero    = 0  \land \\
+  InFlag2Nat \ First   = 1  \land \\
+  InFlag2Nat \ Second  = 2  \land \\
+  InFlag2Nat \ Third   = 3  \land \\
+  InFlag2Nat \ Remove  = 4
+\end{axdef}
+
+\begin{axdef}
+  Nat2InFlag : \nat \pfun InappropriateFlag
+\where
+  Nat2InFlag \ 0 = Zero  \land \\
+  Nat2InFlag \ 1 = First  \land \\
+  Nat2InFlag \ 2 = Second \land \\
+  Nat2InFlag \ 3 = Third  \land \\
+  Nat2InFlag \ 4 = Remove
+\end{axdef}
+
