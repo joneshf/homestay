@@ -118,5 +118,8 @@ We let them know that the reset was successful.
   App_0 = (E, P, FN, LN, AD) \in Applicants \\
   App_1 = (E, P?, FN, LN, AD) \\
   Applicants' = Applicants \Update App_1 \\
-  Resp! = PasswordResetSuccessful
+  Resp! = PasswordResetSuccessful \\
+
+  Emails' = Emails \\
+  Passwords' = Passwords
 \end{schema}
