@@ -1,8 +1,12 @@
 \contentsline {section}{\numberline {1}General}{2}
-\contentsline {subsection}{\numberline {1.1}General Operators}{4}
-\contentsline {section}{\numberline {2}Login}{8}
-\contentsline {section}{\numberline {3}Student}{12}
-\contentsline {section}{\numberline {4}Host}{13}
-\contentsline {section}{\numberline {5}Administrator}{15}
-\contentsline {section}{\numberline {6}Group Chat}{17}
-\contentsline {section}{\numberline {7}Profile}{18}
+\contentsline {subsection}{\numberline {1.1}General Operators}{6}
+\contentsline {subsection}{\numberline {1.2}General Updates}{6}
+\contentsline {section}{\numberline {2}Login}{13}
+\contentsline {section}{\numberline {3}Student}{17}
+\contentsline {section}{\numberline {4}Host}{18}
+\contentsline {subsection}{\numberline {4.1}Preferences}{18}
+\contentsline {subsection}{\numberline {4.2}Validation}{20}
+\contentsline {subsection}{\numberline {4.3}Postings}{21}
+\contentsline {section}{\numberline {5}Administrator}{24}
+\contentsline {section}{\numberline {6}Group Chat}{26}
+\contentsline {section}{\numberline {7}Profile}{27}

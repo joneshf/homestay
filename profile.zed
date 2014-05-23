@@ -6,67 +6,57 @@
 The profile section has functionality to update/change basic user information: First Name, Last Name,
 User Photo, Email, and Phone Number.
 
+We just need to replace the first name for the applicant.
+
 \begin{schema}{EditFirstName}
   \Delta HomestayDatabase \\
-  FN?, FN : FirstName\\
-  LN : LastName \\
-  E  : Email \\
-  P : Password \\
-  AD : AdminFlag \\
-  App_0, App_1 : Applicant
+  FN?: FirstName\\
+  App_0?, App_1 : Applicant \\
 \where
-  E \in Emails \\
-  P \in Passwords \\
-  App_0 = (E, P, FN, LN, AD) \in Applicants \\
-  App_1 = (E, P, FN?, LN, AD) \\
+  App_0? \in Applicants \\
+  App_1 = updateThirdOf5 (App_0?, FN?) \\
   Applicants' = Applicants \Update App_1 \\
-  
+
   Emails' = Emails \\
   Passwords' = Passwords \\
   PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   HostPreferences' = HostPreferences \\
-  Postings' = Postings
+  Postings' = Postings \\
+  UserPhotos' = UserPhotos
 \end{schema}
+
+We just need to replace the last name for the applicant.
 
 \begin{schema}{EditLastName}
   \Delta HomestayDatabase \\
-  FN : FirstName\\
-  LN, LN? : LastName \\
-  E  : Email \\
-  P : Password \\
-  AD : AdminFlag \\
-  App_0, App_1 : Applicant
+  LN? : LastName \\
+  App_0?, App_1 : Applicant
 \where
-  E \in Emails \\
-  P \in Passwords \\
-  App_0 = (E, P, FN, LN, AD) \in Applicants \\
-  App_1 = (E, P, FN, LN?, AD) \\
+  App_0? \in Applicants \\
+  App_1 = updateFourthOf5 (App_0?, LN?) \\
   Applicants' = Applicants \Update App_1 \\
-  
+
   Emails' = Emails \\
   Passwords' = Passwords \\
   PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
+  UserPhotos' = UserPhotos \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   HostPreferences' = HostPreferences \\
   Postings' = Postings
 \end{schema}
 
+We just need to replace the photo for the applicant.
+
 \begin{schema}{EditPhoto}
   \Delta HomestayDatabase \\
-  FN : FirstName\\
-  LN : LastName \\
-  P : Password \\
-  UP?, UP : UserPhoto \\
-  E  : Email \\
-  AD : AdminFlag \\ 
+  UP? : UserPhoto \\
+  App? : Applicant
 \where
-  \exists App : Applicant | App = (E, P, FN, LN, AD) \in Applicants \land UP \in UserPhoto @ \\
-  UserPhoto' = UserPhoto \setminus \{UP\} \land UserPhoto' = UserPhoto \cup \{UP?\} \\
-  
+  UserPhotos' = UserPhotos \oplus \{App? \mapsto UP?\} \\
+
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
@@ -76,6 +66,9 @@ User Photo, Email, and Phone Number.
   HostPreferences' = HostPreferences \\
   Postings' = Postings
 \end{schema}
+
+We have to check that the email is not currently used in the system.
+Then update the email for the applicant and ensure the changes cascade throughout the system.
 
 \begin{schema}{EditEmail}
   \Delta HomestayDatabase \\
@@ -92,29 +85,26 @@ User Photo, Email, and Phone Number.
   Emails' = Emails \\
   Passwords' = Passwords \\
   PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
+  UserPhotos' = UserPhotos \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   HostPreferences' = HostPreferences \\
   Postings' = Postings
 \end{schema}
 
+We just need to update the phone number for the applicant.
+
 \begin{schema}{EditPhone}
   \Delta HomestayDatabase \\
-  FN : FirstName\\
-  LN : LastName \\
-  E  : Email \\
-  P  : Password \\
-  AD : AdminFlag \\
-  PNUM?, PNUM : Phone 
+  PNUM? : Phone \\
+  App? : Applicant
 \where
-  \exists App : Applicant | App = (E, P, FN, LN, AD) \in Applicants \land PNUM \in PhoneNumbers @ \\
-  PhoneNumbers' = PhoneNumbers \setminus \{PNUM\} \land PhoneNumbers' = PhoneNumbers \cup \{PNUM?\} \\
-  
+  PhoneNumbers' = PhoneNumbers \oplus \{App? \mapsto PNUM?\} \\
+
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
-  UserPhoto' = UserPhoto \\
+  UserPhotos' = UserPhotos \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   HostPreferences' = HostPreferences \\

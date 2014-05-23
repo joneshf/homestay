@@ -7,6 +7,8 @@ The host section allows the user to view and modify preferences specific to host
 There are some general preferences for each host, e.g. smoking, and pets.
 Then there are preferences for each host location, e.g. price and availability.
 
+\subsection{Preferences}
+
 \begin{schema}{EditHostSmoking}
   \Delta HomestayDatabase \\
   H? : HostPreference \\
@@ -99,77 +101,80 @@ Then there are preferences for each host location, e.g. price and availability.
 \end{schema}
 
 \begin{zed}
-  EditHostPreferences == EditHostSmoking \lor EditHostPets \lor EditHostChildren \lor EditHostDiet \lor \\
-  EditHostReligion
+  EditHostPreferences == EditHostSmoking \lor \\
+  \t1 EditHostPets \lor \\
+  \t1 EditHostChildren \lor \\
+  \t1 EditHostDiet \lor \\
+  \t1 EditHostReligion
 \end{zed}
+
+\subsection{Validation}
 
 So long as the start date is before the end date,
 we consider the Availability to be valid.
 
 \begin{schema}{ValiDateGood}
-  A? : Availability \\
-  Resp! : Response \\
+  Avail? : Availability \\
+  AvailResp! : Response \\
   Start, End : Date \\
   Y_0, Y_1 : Year \\
   M_0, M_1 : Month \\
   D_0, D_1 : Day
 \where
-  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = A? \\
+  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = Avail? \\
   (Y_0 < Y_1) \lor \\
   \t1 (Y_0 = Y_1 \land month2Nat \ M_0 < month2Nat \ M_1) \lor \\
   \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 < D_1) \\
-  Resp! = ValidAvailability
+  AvailResp! = ValidAvailability
 \end{schema}
 
 If the start date is after the end date,
 then no bueno.
 
 \begin{schema}{ValiDateBad}
-  A? : Availability \\
-  Resp! : Response \\
+  Avail? : Availability \\
+  AvailResp! : Response \\
   Start, End : Date \\
   Y_0, Y_1 : Year \\
   M_0, M_1 : Month \\
   D_0, D_1 : Day
 \where
-  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = A? \\
+  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = Avail? \\
   (Y_0 > Y_1) \lor \\
   \t1 (Y_0 = Y_1 \land month2Nat \ M_0 > month2Nat \ M_1) \lor \\
   \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 > D_1) \\
-  Resp! = InvalidAvailability
+  AvailResp! = InvalidAvailability
 \end{schema}
 
 \begin{zed}
   ValiDate == ValiDateGood \lor ValiDateBad
 \end{zed}
 
+\subsection{Postings}
 %Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
 To create a new posting, the host enters all the relevant information for hosting
 
 \begin{schema}{NewPosting}
   \Delta HomestayDatabase \\
-  P? : Posting \\
-  H : HostPreference \\
-  A? : Address \\
-  AI? : AddressInfo \\
+  ValiDate \\
+  H? : HostPreference \\
+  Addr? : Address \\
   E? : ExactOrArea \\
-  SNUM? : StreetNumber \\
-  SNAME? : StreetName \\
-  CITY? : City \\
-  ST? : State \\
-  ZIP? : ZipCode \\
-  S? : SizeOfRoom \\
   WIDTH? : \nat \\
   LENGTH? : \nat \\
   PR? : Price \\
-  AV : Availability \\
-  PH? : Photo
+  Avail? : Availability \\
+  PH? : Photo \\
+  P : Posting \\
+  AI : AddressInfo \\
+  S : SizeOfRoom \\
+  AvailResp! : Response
 \where
-  A? = (SNUM?, SNAME?, CITY?, ST?, ZIP?) \\
-  AI? = A? \mapsto E? \\
-  S? = WIDTH? \mapsto LENGTH? \\
-  P? = (H, AI?, S?, PR?, AV, PH?) \\
-  Postings' = Postings \cup \{P?\} \\
+  AvailResp! = ValidAvailability \\
+  AI = Addr? \mapsto E? \\
+  S = WIDTH? \mapsto LENGTH? \\
+  P = (H?, AI, S, PR?, Avail?, PH?) \\
+  Postings' = Postings \cup \{P\} \\
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
@@ -180,7 +185,7 @@ To create a new posting, the host enters all the relevant information for hostin
   HostPreferences' = HostPreferences
 \end{schema}
 
-Deleting a post takes the post of Postings
+Deleting a post removes the post from Postings
 
 \begin{schema}{DeletePosting}
   \Delta HomestayDatabase \\

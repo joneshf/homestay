@@ -1,6 +1,6 @@
 \section{General}
 \begin{zsection}
-  \SECTION general \parents homestay
+  \SECTION general \parents homestay, updates
 \end{zsection}
 
 We want to have a few basic types here.
@@ -83,29 +83,46 @@ So, we enumerate the possible responses from actions taken.
 We need to know about the host stuff.
 
 \begin{zed}
-  Smoking ::= EnjoysSmoking | NonSmoking \\
-  Pets ::= NoPets | YesPets \\
-  Children ::= One | Two | ThreePlus \\
-  Diet ::= GlutenFree | Omnivore | Pescatarian | Vegetarian | Vegan | OtherDiet \\
-  Religion ::= Agnostic | Athiest | Buddhist | Christian | Catholic | Mormon | Muslim | OtherReligion \\
+  Smoking ::= \\
+  \t1 EnjoysSmoking \\
+  \t1 | NonSmoking \\
+  Pets ::= \\
+  \t1 NoPets \\
+  \t1 | YesPets \\
+  Children ::= \\
+  \t1 One \\
+  \t1 | Two \\
+  \t1 | ThreePlus \\
+  Diet ::= \\
+  \t1 GlutenFree \\
+  \t1 | Omnivore \\
+  \t1 | Pescatarian \\
+  \t1 | Vegetarian \\
+  \t1 | Vegan \\
+  \t1 | OtherDiet \\
+  Religion ::= \\
+  \t1 Agnostic \\
+  \t1 | Athiest \\
+  \t1 | Buddhist \\
+  \t1 | Christian \\
+  \t1 | Catholic \\
+  \t1 | Mormon \\
+  \t1 | Muslim \\
+  \t1 | OtherReligion \\
 \end{zed}
 
 Does the host want to post the exact location of his/her home or a general area where the home exists inside of?
 
 \begin{zed}
   ExactOrArea ::= ExactLocation | Area \\
-  StreetNumber == \nat \\
-  StreetName ::= SomeStreet\\
-  City ::= SomeCity\\
-  State ::= SomeState\\
-  ZipCode == \nat \\
+\end{zed}
+\begin{zed}
+  [ StreetNumber, StreetName, City, State, ZipCode, Phone, Photo ]
 \end{zed}
 
 \begin{zed}
-  Pic ::= AnyPicture \\
-  PostingPhoto == Pic \\
-  UserPhoto == Pic \\
-  Phone == \nat \\
+  PostingPhoto == Photo \\
+  UserPhoto == Photo
 \end{zed}
 
 \begin{zed}
@@ -113,7 +130,7 @@ Does the host want to post the exact location of his/her home or a general area 
   SizeOfRoom == \nat \cross \nat \\
   Address == StreetNumber \cross StreetName \cross City \cross State \cross ZipCode \\
   AddressInfo == Address \cross ExactOrArea \\
-  Availability == Date \cross Date \\ 
+  Availability == Date \cross Date \\
   HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
   Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
 \end{zed}
@@ -124,8 +141,8 @@ Our initial state is just a bunch of empty sets.
   Applicants : \power Applicant \\
   Emails : \power Email \\
   Passwords : \power Password \\
-  PhoneNumbers : \power Phone \\
-  UserPhoto : \power Pic \\
+  PhoneNumbers : \power (Applicant \cross Phone) \\
+  UserPhotos : \power (Applicant \cross Photo) \\
   Valid, Invalid : \power PToken \\
   IFlags : \power IFlag \\
   Postings : \power Posting \\
@@ -135,9 +152,9 @@ Our initial state is just a bunch of empty sets.
   Emails = \emptyset \\
   Passwords = \emptyset \\
   PhoneNumbers = \emptyset \\
-  UserPhoto = \emptyset \\
+  UserPhotos = \emptyset \\
   Valid = Invalid = \emptyset \\
-  IFlags = \emptyset
+  IFlags = \emptyset \\
   Postings = \emptyset \\
   HostPreferences = \emptyset
 \end{schema}
@@ -163,67 +180,32 @@ This helper function updates the applicant in the set of all applicants,
 identified by the email address.
 
 \begin{gendef}[A, B, C, D, E, F]
-  firstOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ a \\
+  firstOf3  == \lambda a : A; b : B; c : C @ a \\
+  secondOf3 == \lambda a : A; b : B; c : C @ b \\
+  thirdOf3  == \lambda a : A; b : B; c : C @ c \\
+
+  firstOf4  == \lambda a : A; b : B; c : C; d : D @ a \\
+  secondOf4 == \lambda a : A; b : B; c : C; d : D @ b \\
+  thirdOf4  == \lambda a : A; b : B; c : C; d : D @ c \\
+  fourthOf4 == \lambda a : A; b : B; c : C; d : D @ d \\
+
+  firstOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ a \\
+  secondOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ b \\
+  thirdOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ c \\
+  fourthOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ d \\
+  fifthOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ e \\
+
+  firstOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ a \\
   secondOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ b \\
-  thirdOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ c \\
+  thirdOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ c \\
   fourthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ d \\
-  fifthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ e \\
-  sixthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ f \\
+  fifthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ e \\
+  sixthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ f \\
 \end{gendef}
 
-\begin{gendef}[ A, B, C, D, E, F ]
-  updateFirstOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
-  \cross A \fun A \cross B \cross C \cross D \cross E \cross F
-\where
-  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; a : A @ \\
-  \t1 \exists a_0 : A; b : B; c : C; d : D; e : E; f : F | abcdef = (a_0, b, c, d, e, f) @ \\
-  \t2  updateFirstOf6 (abcdef, a) = (a, b, c, d, e, f)
-\end{gendef}
+% Bring in the update stuff.
 
-\begin{gendef}[ A, B, C, D, E, F ]
-  updateSecondOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
-  \cross B \fun A \cross B \cross C \cross D \cross E \cross F
-\where
-  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; b : B @ \\
-  \t1 \exists a : A; b_0 : B; c : C; d : D; e : E; f : F | abcdef = (a, b_0, c, d, e, f) @ \\
-  \t2  updateSecondOf6 (abcdef, b) = (a, b, c, d, e, f)
-\end{gendef}
-
-\begin{gendef}[ A, B, C, D, E, F ]
-  updateThirdOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
-  \cross C \fun A \cross B \cross C \cross D \cross E \cross F
-\where
-  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; c : C @ \\
-  \t1 \exists a : A; b : B; c_0 : C; d : D; e : E; f : F | abcdef = (a, b, c_0, d, e, f) @ \\
-  \t2  updateThirdOf6 (abcdef, c) = (a, b, c, d, e, f)
-\end{gendef}
-
-\begin{gendef}[ A, B, C, D, E, F ]
-  updateFourthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
-  \cross D \fun A \cross B \cross C \cross D \cross E \cross F
-\where
-  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; d : D @ \\
-  \t1 \exists a : A; b : B; c : C; d_0 : D; e : E; f : F | abcdef = (a, b, c, d_0, e, f) @ \\
-  \t2  updateFourthOf6 (abcdef, d) = (a, b, c, d, e, f)
-\end{gendef}
-
-\begin{gendef}[ A, B, C, D, E, F ]
-  updateFifthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
-  \cross E \fun A \cross B \cross C \cross D \cross E \cross F
-\where
-  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; e : E @ \\
-  \t1 \exists a : A; b : B; c : C; d : D; e_0 : E; f : F | abcdef = (a, b, c, d, e_0, f) @ \\
-  \t2  updateFifthOf6 (abcdef, e) = (a, b, c, d, e, f)
-\end{gendef}
-
-\begin{gendef}[ A, B, C, D, E, F ]
-  updateSixthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
-  \cross F \fun A \cross B \cross C \cross D \cross E \cross F
-\where
-  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; f : F @ \\
-  \t1 \exists a : A; b : B; c : C; d : D; e : E; f_0 : F | abcdef = (a, b, c, d, e, f_0) @ \\
-  \t2  updateSixthOf6 (abcdef, f) = (a, b, c, d, e, f)
-\end{gendef}
+\input{update}
 
 We're going to Greenspun up some stuff.
 
@@ -311,7 +293,7 @@ We're going to Greenspun up some stuff.
   HostPreferences' = HostPreferences \\
   PhoneNumbers' = PhoneNumbers \\
   Passwords' = Passwords \\
-  UserPhoto' = UserPhoto \\
+  UserPhotos' = UserPhotos \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings

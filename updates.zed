@@ -1,0 +1,174 @@
+\subsection{General Updates}
+\begin{zsection}
+  \SECTION updates \parents homestay
+\end{zsection}
+
+Updating for 3-tuples.
+
+\begin{gendef}[ A, B, C ]
+  updateFirstOf3 : (A \cross B \cross C) \cross A \fun \\
+  \t4 A \cross B \cross C
+\where
+  \forall abc : A \cross B \cross C; a : A @ \\
+  \t1 \exists a_0 : A; b : B; c : C | abc = (a_0, b, c) @ \\
+  \t2  updateFirstOf3 (abc, a) = (a, b, c)
+\end{gendef}
+
+\begin{gendef}[ A, B, C ]
+  updateSecondOf3 : (A \cross B \cross C) \cross B \fun \\
+  \t4 A \cross B \cross C
+\where
+  \forall abc : A \cross B \cross C; b : B @ \\
+  \t1 \exists a : A; b_0 : B; c : C | abc = (a, b_0, c) @ \\
+  \t2  updateSecondOf3 (abc, b) = (a, b, c)
+\end{gendef}
+
+\begin{gendef}[ A, B, C ]
+  updateThirdOf3 : (A \cross B \cross C) \cross C \fun \\
+  \t4 A \cross B \cross C
+\where
+  \forall abc : A \cross B \cross C; c : C @ \\
+  \t1 \exists a : A; b : B; c_0 : C | abc = (a, b, c_0) @ \\
+  \t2  updateThirdOf3 (abc, c) = (a, b, c)
+\end{gendef}
+
+Updating for 4-tuples.
+
+\begin{gendef}[ A, B, C, D ]
+  updateFirstOf4 : (A \cross B \cross C \cross D) \cross A \fun \\
+  \t4 A \cross B \cross C \cross D
+\where
+  \forall abcd : A \cross B \cross C \cross D; a : A @ \\
+  \t1 \exists a_0 : A; b : B; c : C ; d : D| abcd = (a_0, b, c, d) @ \\
+  \t2  updateFirstOf4 (abcd, a) = (a, b, c, d)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D ]
+  updateSecondOf4 : (A \cross B \cross C \cross D) \cross B \fun \\
+  \t4 A \cross B \cross C \cross D
+\where
+  \forall abcd : A \cross B \cross C \cross D; b : B @ \\
+  \t1 \exists a : A; b_0 : B; c : C ; d : D| abcd = (a, b_0, c, d) @ \\
+  \t2  updateSecondOf4 (abcd, b) = (a, b, c, d)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D ]
+  updateThirdOf4 : (A \cross B \cross C \cross D) \cross C \fun \\
+  \t4 A \cross B \cross C \cross D
+\where
+  \forall abcd : A \cross B \cross C \cross D; c : C @ \\
+  \t1 \exists a : A; b : B; c_0 : C ; d : D| abcd = (a, b, c_0, d) @ \\
+  \t2  updateThirdOf4 (abcd, c) = (a, b, c, d)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D ]
+  updateFourthOf4 : (A \cross B \cross C \cross D) \cross D \fun \\
+  \t4 A \cross B \cross C \cross D
+\where
+  \forall abcd : A \cross B \cross C \cross D; d : D @ \\
+  \t1 \exists a : A; b : B; c : C ; d_0 : D| abcd = (a, b, c, d_0) @ \\
+  \t2  updateFourthOf4 (abcd, d) = (a, b, c, d)
+\end{gendef}
+
+Updating for 5-tuples.
+
+\begin{gendef}[ A, B, C, D, E ]
+  updateFirstOf5 : (A \cross B \cross C \cross D \cross E) \cross A \fun \\
+  \t4 A \cross B \cross C \cross D \cross E
+\where
+  \forall abcde : A \cross B \cross C \cross D \cross E; a : A @ \\
+  \t1 \exists a_0 : A; b : B; c : C ; d : D; e : E| abcde = (a_0, b, c, d, e) @ \\
+  \t2  updateFirstOf5 (abcde, a) = (a, b, c, d, e)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E ]
+  updateSecondOf5 : (A \cross B \cross C \cross D \cross E) \cross B \fun \\
+  \t4 A \cross B \cross C \cross D \cross E
+\where
+  \forall abcde : A \cross B \cross C \cross D \cross E; b : B @ \\
+  \t1 \exists a : A; b_0 : B; c : C ; d : D; e : E| abcde = (a, b_0, c, d, e) @ \\
+  \t2  updateSecondOf5 (abcde, b) = (a, b, c, d, e)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E ]
+  updateThirdOf5 : (A \cross B \cross C \cross D \cross E) \cross C \fun \\
+  \t4 A \cross B \cross C \cross D \cross E
+\where
+  \forall abcde : A \cross B \cross C \cross D \cross E; c : C @ \\
+  \t1 \exists a : A; b : B; c_0 : C ; d : D; e : E| abcde = (a, b, c_0, d, e) @ \\
+  \t2  updateThirdOf5 (abcde, c) = (a, b, c, d, e)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E ]
+  updateFourthOf5 : (A \cross B \cross C \cross D \cross E) \cross D \fun \\
+  \t4 A \cross B \cross C \cross D \cross E
+\where
+  \forall abcde : A \cross B \cross C \cross D \cross E; d : D @ \\
+  \t1 \exists a : A; b : B; c : C ; d_0 : D; e : E| abcde = (a, b, c, d_0, e) @ \\
+  \t2  updateFourthOf5 (abcde, d) = (a, b, c, d, e)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E ]
+  updateFifthOf5 : (A \cross B \cross C \cross D \cross E) \cross E \fun \\
+  \t4 A \cross B \cross C \cross D \cross E
+\where
+  \forall abcde : A \cross B \cross C \cross D \cross E; e : E @ \\
+  \t1 \exists a : A; b : B; c : C ; d : D; e_0 : E| abcde = (a, b, c, d, e_0) @ \\
+  \t2  updateFifthOf5 (abcde, e) = (a, b, c, d, e)
+\end{gendef}
+
+Updating for 6-tuples.
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateFirstOf6 : (A \cross B \cross C \cross D \cross E \cross F) \cross A \fun \\
+  \t4 A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; a : A @ \\
+  \t1 \exists a_0 : A; b : B; c : C; d : D; e : E; f : F | abcdef = (a_0, b, c, d, e, f) @ \\
+  \t2  updateFirstOf6 (abcdef, a) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateSecondOf6 : (A \cross B \cross C \cross D \cross E \cross F) \cross B \fun \\
+  \t4 A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; b : B @ \\
+  \t1 \exists a : A; b_0 : B; c : C; d : D; e : E; f : F | abcdef = (a, b_0, c, d, e, f) @ \\
+  \t2  updateSecondOf6 (abcdef, b) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateThirdOf6 : (A \cross B \cross C \cross D \cross E \cross F) \cross C \fun \\
+  \t4 A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; c : C @ \\
+  \t1 \exists a : A; b : B; c_0 : C; d : D; e : E; f : F | abcdef = (a, b, c_0, d, e, f) @ \\
+  \t2  updateThirdOf6 (abcdef, c) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateFourthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \cross D \fun \\
+  \t4 A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; d : D @ \\
+  \t1 \exists a : A; b : B; c : C; d_0 : D; e : E; f : F | abcdef = (a, b, c, d_0, e, f) @ \\
+  \t2  updateFourthOf6 (abcdef, d) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateFifthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \cross E \fun \\
+  \t4 A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; e : E @ \\
+  \t1 \exists a : A; b : B; c : C; d : D; e_0 : E; f : F | abcdef = (a, b, c, d, e_0, f) @ \\
+  \t2  updateFifthOf6 (abcdef, e) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateSixthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \cross F \fun \\
+  \t4 A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; f : F @ \\
+  \t1 \exists a : A; b : B; c : C; d : D; e : E; f_0 : F | abcdef = (a, b, c, d, e, f_0) @ \\
+  \t2  updateSixthOf6 (abcdef, f) = (a, b, c, d, e, f)
+\end{gendef}
