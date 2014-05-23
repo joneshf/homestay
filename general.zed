@@ -84,13 +84,16 @@ We need to know about the host stuff.
 
 \begin{zed}
   Smoking ::= EnjoysSmoking | NonSmoking \\
-  Pets ::= NoPets | YesPets
+  Pets ::= NoPets | YesPets \\
+  Children ::= One | Two | ThreePlus \\
+  Diet ::= GlutenFree | Omnivore | Pescatarian | Vegetarian | Vegan | OtherDiet \\
+  Religion ::= Agnostic | Athiest | Buddhist | Christian | Catholic | Mormon | Muslim | OtherReligion \\
 \end{zed}
 
 \begin{zed}
   Price == \nat \\
   Availability == Date \cross Date \\
-  HostPreference == Applicant \cross Smoking \cross Pets \\
+  HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
   Posting == HostPreference \cross Availability \cross Price
 \end{zed}
 
@@ -140,28 +143,58 @@ identified by the email address.
   thirdOf3 == \lambda x : X; y : Y; z : Z @ z
 \end{gendef}
 
-\begin{gendef}[ X, Y, Z ]
-  updateFirstOf3 : (X \cross Y \cross Z) \cross X \fun X \cross Y \cross Z
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateFirstOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
+  \cross A \fun A \cross B \cross C \cross D \cross E \cross F
 \where
-  \forall xyz : X \cross Y \cross Z; x : X @ \\
-  \t1 \exists x_0 : X; y : Y; z : Z | xyz = (x_0, y, z) @ \\
-  \t2  updateFirstOf3 (xyz, x) = (x, y, z)
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; a : A @ \\
+  \t1 \exists a_0 : A; b : B; c : C; d : D; e : E; f : F | abcdef = (a_0, b, c, d, e, f) @ \\
+  \t2  updateFirstOf6 (abcdef, a) = (a, b, c, d, e, f)
 \end{gendef}
 
-\begin{gendef}[ X, Y, Z ]
-  updateSecondOf3 : (X \cross Y \cross Z) \cross Y \fun X \cross Y \cross Z
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateSecondOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
+  \cross B \fun A \cross B \cross C \cross D \cross E \cross F
 \where
-  \forall xyz : X \cross Y \cross Z; y : Y @ \\
-  \t1 \exists x : X; y_0 : Y; z : Z | xyz = (x, y_0, z) @ \\
-  \t2  updateSecondOf3 (xyz, y) = (x, y, z)
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; b : B @ \\
+  \t1 \exists a : A; b_0 : B; c : C; d : D; e : E; f : F | abcdef = (a, b_0, c, d, e, f) @ \\
+  \t2  updateSecondOf6 (abcdef, b) = (a, b, c, d, e, f)
 \end{gendef}
 
-\begin{gendef}[ X, Y, Z ]
-  updateThirdOf3 : (X \cross Y \cross Z) \cross Z \fun X \cross Y \cross Z
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateThirdOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
+  \cross C \fun A \cross B \cross C \cross D \cross E \cross F
 \where
-  \forall xyz : X \cross Y \cross Z; z : Z @ \\
-  \t1 \exists x : X; y : Y; z_0 : Z | xyz = (x, y, z_0) @ \\
-  \t2  updateThirdOf3 (xyz, z) = (x, y, z)
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; c : C @ \\
+  \t1 \exists a : A; b : B; c_0 : C; d : D; e : E; f : F | abcdef = (a, b, c_0, d, e, f) @ \\
+  \t2  updateThirdOf6 (abcdef, c) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateFourthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
+  \cross D \fun A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; d : D @ \\
+  \t1 \exists a : A; b : B; c : C; d_0 : D; e : E; f : F | abcdef = (a, b, c, d_0, e, f) @ \\
+  \t2  updateFourthOf6 (abcdef, d) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateFifthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
+  \cross E \fun A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; e : E @ \\
+  \t1 \exists a : A; b : B; c : C; d : D; e_0 : E; f : F | abcdef = (a, b, c, d, e_0, f) @ \\
+  \t2  updateFifthOf6 (abcdef, e) = (a, b, c, d, e, f)
+\end{gendef}
+
+\begin{gendef}[ A, B, C, D, E, F ]
+  updateSixthOf6 : (A \cross B \cross C \cross D \cross E \cross F) \\
+  \cross F \fun A \cross B \cross C \cross D \cross E \cross F
+\where
+  \forall abcdef : A \cross B \cross C \cross D \cross E \cross F; f : F @ \\
+  \t1 \exists a : A; b : B; c : C; d : D; e : E; f_0 : F | abcdef = (a, b, c, d, e, f_0) @ \\
+  \t2  updateSixthOf6 (abcdef, f) = (a, b, c, d, e, f)
 \end{gendef}
 
 We're going to Greenspun up some stuff.
