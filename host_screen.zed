@@ -59,10 +59,10 @@ Then there are preferences for each host location, e.g. price and availability.
 \begin{schema}{EditHostDiet}
   \Delta HomestayDatabase \\
   H?, H : HostPreference \\
-  P? : Pets
+  D? : Diet
 \where
   H? \in HostPreferences \\
-  H = updateThirdOf6 (H?, P?) \\
+  H = updateFifthOf6 (H?, D?) \\
   HostPreferences' = updateHostPrefs (HostPreferences, H) \\
   Applicants' = Applicants \\
   Emails' = Emails \\
@@ -75,10 +75,10 @@ Then there are preferences for each host location, e.g. price and availability.
 \begin{schema}{EditHostReligion}
   \Delta HomestayDatabase \\
   H?, H : HostPreference \\
-  P? : Pets
+  R? : Religion
 \where
   H? \in HostPreferences \\
-  H = updateThirdOf6 (H?, P?) \\
+  H = updateSixthOf6 (H?, R?) \\
   HostPreferences' = updateHostPrefs (HostPreferences, H) \\
   Applicants' = Applicants \\
   Emails' = Emails \\
