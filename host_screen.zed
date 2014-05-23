@@ -7,36 +7,47 @@ The host section allows the user to view and modify preferences specific to host
 There are some general preferences for each host, e.g. smoking, and pets.
 Then there are preferences for each host location, e.g. price and availability.
 
-\begin{zed}
-  Smoking ::= EnjoysSmoking | NonSmoking \\
-  Pets ::= NoPets | YesPets
-\end{zed}
-
-\begin{zed}
-  Price == \nat \\
-  Availability == Date \cross Date \\
-  HostPreference == Applicant \cross Smoking \cross Pets
-\end{zed}
-
 \begin{schema}{EditHostSmoking}
-  H?, H! : HostPreference \\
+  \Delta HomestayDatabase \\
+  H? : HostPreference \\
+  H : HostPreference \\
   S? : Smoking
 \where
-  H! = updateSecondOf3 (H?, S?)
+  H? \in HostPreferences \\
+  H = updateSecondOf3 (H?, S?) \\
+  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
 \end{schema}
 
 \begin{schema}{EditHostPets}
-  H?, H! : HostPreference \\
+  \Delta HomestayDatabase \\
+  H?, H : HostPreference \\
   P? : Pets
 \where
-  H! = updateThirdOf3 (H?, P?)
+  H? \in HostPreferences \\
+  H = updateThirdOf3 (H?, P?) \\
+  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
 \end{schema}
 
 \begin{zed}
   EditHostPreferences == EditHostSmoking \lor EditHostPets
 \end{zed}
 
-\begin{schema}{ValiDate}
+So long as the start date is before the end date,
+we consider the Availability to be valid.
+
+\begin{schema}{ValiDateGood}
   A? : Availability \\
   Resp! : Response \\
   Start, End : Date \\
@@ -50,3 +61,25 @@ Then there are preferences for each host location, e.g. price and availability.
   \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 < D_1) \\
   Resp! = ValidAvailability
 \end{schema}
+
+If the start date is after the end date,
+then no bueno.
+
+\begin{schema}{ValiDateBad}
+  A? : Availability \\
+  Resp! : Response \\
+  Start, End : Date \\
+  Y_0, Y_1 : Year \\
+  M_0, M_1 : Month \\
+  D_0, D_1 : Day
+\where
+  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = A? \\
+  (Y_0 > Y_1) \lor \\
+  \t1 (Y_0 = Y_1 \land month2Nat \ M_0 > month2Nat \ M_1) \lor \\
+  \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 > D_1) \\
+  Resp! = InvalidAvailability
+\end{schema}
+
+\begin{zed}
+  ValiDate == ValiDateGood \lor ValiDateBad
+\end{zed}

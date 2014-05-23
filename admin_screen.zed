@@ -51,7 +51,7 @@ their accept/reject match to the admin, the admin will have final approval to ac
   Invalid' = Invalid
 \end{schema}
 
-\begin{schema}{RemoveUser}
+\begin{schema}{Hat2DaBack}
   \Delta HomestayDatabase \\
   M? : Message \\
   E? : Email   \\

@@ -39,6 +39,9 @@ We need to know general information about all of the users in the system:
   Year == \nat
 \end{zed}
 
+We want to know whether or not the user is an admin or not.
+This is used so that they get access to certain features in the application.
+
 \begin{zed}
   AdminFlag ::= \\
   \t1 Admin \\
@@ -77,6 +80,20 @@ So, we enumerate the possible responses from actions taken.
   \t1 | ValidAvailability
 \end{zed}
 
+We need to know about the host stuff.
+
+\begin{zed}
+  Smoking ::= EnjoysSmoking | NonSmoking \\
+  Pets ::= NoPets | YesPets
+\end{zed}
+
+\begin{zed}
+  Price == \nat \\
+  Availability == Date \cross Date \\
+  HostPreference == Applicant \cross Smoking \cross Pets \\
+  Posting == HostPreference \cross Availability \cross Price
+\end{zed}
+
 Our initial state is just a bunch of empty sets.
 
 \begin{schema}{HomestayInitial}
@@ -84,13 +101,17 @@ Our initial state is just a bunch of empty sets.
   Emails : \power Email \\
   Passwords : \power Password \\
   Valid, Invalid : \power PToken \\
-  IFlags : \power IFlag
+  IFlags : \power IFlag \\
+  Postings : \power Posting \\
+  HostPreferences : \power HostPreference
 \where
   Applicants = \emptyset \\
   Emails = \emptyset \\
   Passwords = \emptyset \\
   Valid = Invalid = \emptyset \\
   IFlags = \emptyset
+  Postings = \emptyset \\
+  HostPreferences = \emptyset
 \end{schema}
 
 In the database we need to ensure that there is each email address is unique,
@@ -112,25 +133,6 @@ so we have some helpers here.
 We want an easy way to update an applicant.
 This helper function updates the applicant in the set of all applicants,
 identified by the email address.
-
-\newcommand{\Update}{\mathbin{\otimes}}
-%%Zinchar \Update U+229A;
-\begin{zed}
-  \function 42 \leftassoc ( \varg \Update \varg )
-\end{zed}
-\begin{axdef}
-  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
-\where
-  \forall a_1 : Applicant ; as : \power Applicant @ \\
-  \t1 \exists p_0, p_1 : Password; \\
-  \t1 fn_0, fn_1 : FirstName; \\
-  \t1 ln_0, ln_1 : LastName; \\
-  \t1 ad_0, ad_1 : AdminFlag; \\
-  \t1 e : Email; \\
-  \t1 a_0 : Applicant | \\
-  \t2 a_1 = (e, p_1, fn_1, ln_1, ad_1) \land (a_0 = (e, p_0, fn_0, ln_0, ad_0) \in as) @ \\
-  \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
-\end{axdef}
 
 \begin{gendef}[X, Y, Z]
   firstOf3 == \lambda x : X; y : Y; z : Z @ x \\
@@ -205,3 +207,49 @@ We're going to Greenspun up some stuff.
   Nat2InFlag \ 4 = Remove
 \end{axdef}
 
+\newcommand{\Update}{\mathbin{\otimes}}
+%%Zinchar \Update U+229A;
+\begin{zed}
+  \function 42 \leftassoc ( \varg \Update \varg )
+\end{zed}
+\begin{axdef}
+  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
+\where
+  \forall a_1 : Applicant ; as : \power Applicant @ \\
+  \t1 \exists p_0, p_1 : Password; \\
+  \t1 fn_0, fn_1 : FirstName; \\
+  \t1 ln_0, ln_1 : LastName; \\
+  \t1 ad_0, ad_1 : AdminFlag; \\
+  \t1 e : Email; \\
+  \t1 a_0 : Applicant | \\
+  \t2 a_1 = (e, p_1, fn_1, ln_1, ad_1) \land (a_0 = (e, p_0, fn_0, ln_0, ad_0) \in as) @ \\
+  \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
+\end{axdef}
+
+\begin{axdef}
+  updateHostPrefs : \power HostPreference \cross HostPreference \fun \power HostPreference
+\where
+  \forall hp : HostPreference; hps : \power HostPreference @ \\
+  \t1 \exists hp_0 : HostPreference | \\
+  \t2 firstOf3 \ hp_0 = firstOf3 \ hp @ \\
+  \t3 updateHostPrefs (hps, hp) = (hps \setminus \{hp_0\}) \cup \{hp\}
+\end{axdef}
+
+\begin{schema}{RemoveUser}
+  \Delta HomestayDatabase \\
+  A? : Applicant\\
+  E : Email \\
+  P : Password \\
+  FN : FirstName \\
+  LN : LastName \\
+  AF : AdminFlag
+\where
+  (E, P, FN, LN, AF) = A? \\
+  Applicants' = Applicants \setminus \{A?\} \\
+  Emails' = Emails \setminus \{E\} \\
+  HostPreferences' = HostPreferences \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
+\end{schema}
