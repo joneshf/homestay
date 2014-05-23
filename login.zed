@@ -8,15 +8,6 @@ We update all of our sets to reflect the new addition.
 After they have successfully created an account,
 they are taken to the main menu.
 
-A person can create either a user account, or they can create an admin account.
-The idea is that the admin account isn't something that you can specify,
-but you must be given a link to sign up for.
-The link you follow gives the admin flag.
-
-\begin{zed}
-  CreateAccount == CreateUserAccount \lor CreateAdminAccount
-\end{zed}
-
 \begin{schema}{CreateUserAccount}
   \Delta HomestayDatabase \\
   E? : Email \\
@@ -48,6 +39,15 @@ The link you follow gives the admin flag.
   Valid' = Valid \\
   Invalid' = Invalid
 \end{schema}
+
+A person can create either a user account, or they can create an admin account.
+The idea is that the admin account isn't something that you can specify,
+but you must be given a link to sign up for.
+The link you follow gives the admin flag.
+
+\begin{zed}
+  CreateAccount == CreateUserAccount \lor CreateAdminAccount
+\end{zed}
 
 To login, a user needs to enter their email and password.
 At this point they are taken to the main menu.
@@ -90,7 +90,10 @@ Of course, if the email address is already compromised, it doesn't make much dif
   T! = ID \mapsto E?\\
 
   Valid' = Valid \cup \{T!\} \\
-  Invalid' = Invalid
+  Invalid' = Invalid \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords
 \end{schema}
 
 Once the user has the password token, they can enter their new password.
