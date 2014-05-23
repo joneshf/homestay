@@ -3,68 +3,95 @@
   \SECTION admin \parents general
 \end{zsection}
 
-Administrator login only needs to act like an inbox with "flag as inappropriate" or "accept/reject match"
-messages from students.  The administrator will have a link to the group chat that is flagged and can add
-messages or end the chat if it is inappropriate.  If the student and host decide to chat, once they send in
-their accept/reject match to the admin, the admin will have final approval to accept or reject the match.
+  Administrator login only needs to act like an inbox with "flag as inappropriate" or "accept/reject match"
+  messages from students.  The administrator will have a link to the group chat that is flagged and can add
+  messages or end the chat if it is inappropriate.  If the student and host decide to chat, once they send in
+  their accept/reject match to the admin, the admin will have final approval to accept or reject the match.
 
-\begin{zed}
-  MatchFlag ::= \\
-  \t1 Accept \\
-  \t1 | Reject
-\end{zed}
+  \begin{zed}
+    MatchFlag ::= \\
+    \t1 Accept \\
+    \t1 | Reject
+  \end{zed}
 
-\begin{zed}
-  Message ::= \\
-  \t1 OneAccept \\
-  \t1 | TwoAccepts \\
-  \t1 | NoAccepts \\
-  \t1 | Inappropriate
-\end{zed}
+  \begin{zed}
+    Message ::= \\
+    \t1 OneAccept \\
+    \t1 | TwoAccepts \\
+    \t1 | NoAccepts \\
+    \t1 | Inappropriate
+  \end{zed}
 
-\begin{axdef}
-  AdminMatch : Message \pfun MatchFlag
-\where
-  AdminMatch \ OneAccept = Reject \land \\
-  AdminMatch \ NoAccepts = Reject \land \\
-  AdminMatch \ TwoAccepts = Accept
-\end{axdef}
+  \begin{axdef}
+    AdminMatch : Message \pfun MatchFlag
+  \where
+    AdminMatch \ OneAccept = Reject \land \\
+    AdminMatch \ NoAccepts = Reject \land \\
+    AdminMatch \ TwoAccepts = Accept
+  \end{axdef}
 
-\begin{schema}{AdminInappropriate}
-  \Delta HomestayDatabase \\
-  M? : Message \\
-  E? : Email   \\
-  I : IFlag \\
-  In, In2 : InappropriateFlag
-\where
-  M? = Inappropriate \\
-  \{E? \mapsto In\} = \{E?\} \dres IFlags \\
-  In \neq Remove \\
-  In2 = Nat2InFlag ((InFlag2Nat \ In) + 1) \\
-  IFlags' = IFlags \oplus \{E? \mapsto In2\} \\
-  In2 \neq Remove \\
-  
-  Applicants' = Applicants\\
-  Emails' = Emails\\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid
-\end{schema}
+  When we need to get rid of a user, we have some steps to take
+  \begin{itemize}
+     \item Remove the applicant.
+     \item Remove the email corresponding to the applicant.
+     \item Remove the password corresponding to the applicant.
+   \end{itemize}
 
-\begin{schema}{InappropriateUser}
-  \Delta HomestayDatabase \\
-  M? : Message \\
-  E? : Email   \\
-  I : IFlag \\
-  In, In2 : InappropriateFlag \\
-  RemoveUser
-\where
-  M? = Inappropriate \\
-  \{E? \mapsto In\} = \{E?\} \dres IFlags \\
-  In \neq Remove \\
-  In2 = Nat2InFlag ((InFlag2Nat \ In) + 1) \\
-  IFlags' = IFlags \oplus \{E? \mapsto In2\} \\
-  In2 = Remove
-\end{schema}
+  \begin{schema}{RemoveUser}
+    \Delta HomestayDatabase \\
+    A? : Applicant\\
+    E : Email \\
+    P : Password \\
+  \where
+    E = firstOf5 \ A? \\
+    P = secondOf5 \ A? \\
+    Applicants' = Applicants \setminus \{A?\} \\
+    Emails' = Emails \setminus \{E\} \\
+    Passwords' = Passwords \setminus \{P\} \\
+
+    HostPreferences' = HostPreferences \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    Postings' = Postings
+  \end{schema}
+
+  \begin{schema}{AdminInappropriate}
+    \Delta HomestayDatabase \\
+    M? : Message \\
+    E? : Email   \\
+    I : IFlag \\
+    In, In2 : InappropriateFlag
+  \where
+    M? = Inappropriate \\
+    \{E? \mapsto In\} = \{E?\} \dres IFlags \\
+    In \neq Remove \\
+    In2 = Nat2InFlag ((InFlag2Nat \ In) + 1) \\
+    IFlags' = IFlags \oplus \{E? \mapsto In2\} \\
+    In2 \neq Remove \\
+
+    Applicants' = Applicants\\
+    Emails' = Emails\\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid \\
+    Invalid' = Invalid
+  \end{schema}
+
+  \begin{schema}{InappropriateUser}
+    \Delta HomestayDatabase \\
+    RemoveUser \\
+    M? : Message \\
+    E? : Email   \\
+    I : IFlag \\
+    In, In2 : InappropriateFlag
+  \where
+    M? = Inappropriate \\
+    \{E? \mapsto In\} = \{E?\} \dres IFlags \\
+    In \neq Remove \\
+    In2 = Nat2InFlag ((InFlag2Nat \ In) + 1) \\
+    IFlags' = IFlags \oplus \{E? \mapsto In2\} \\
+    In2 = Remove
+  \end{schema}

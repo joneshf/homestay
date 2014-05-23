@@ -3,110 +3,110 @@
   \SECTION profile \parents general
 \end{zsection}
 
-The profile section has functionality to update/change basic user information: First Name, Last Name,
-User Photo, Email, and Phone Number.
+  The profile section has functionality to update/change basic user information: First Name, Last Name,
+  User Photo, Email, and Phone Number.
 
-We just need to replace the first name for the applicant.
+  We just need to replace the first name for the applicant.
 
-\begin{schema}{EditFirstName}
-  \Delta HomestayDatabase \\
-  FN?: FirstName\\
-  App_0?, App_1 : Applicant \\
-\where
-  App_0? \in Applicants \\
-  App_1 = updateThirdOf5 (App_0?, FN?) \\
-  Applicants' = Applicants \Update App_1 \\
+  \begin{schema}{EditFirstName}
+    \Delta HomestayDatabase \\
+    FN?: FirstName\\
+    App_0?, App_1 : Applicant \\
+  \where
+    App_0? \in Applicants \\
+    App_1 = updateThirdOf5 (App_0?, FN?) \\
+    Applicants' = Applicants \Update App_1 \\
 
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences \\
-  Postings' = Postings \\
-  UserPhotos' = UserPhotos
-\end{schema}
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    HostPreferences' = HostPreferences \\
+    Postings' = Postings \\
+    UserPhotos' = UserPhotos
+  \end{schema}
 
-We just need to replace the last name for the applicant.
+  We just need to replace the last name for the applicant.
 
-\begin{schema}{EditLastName}
-  \Delta HomestayDatabase \\
-  LN? : LastName \\
-  App_0?, App_1 : Applicant
-\where
-  App_0? \in Applicants \\
-  App_1 = updateFourthOf5 (App_0?, LN?) \\
-  Applicants' = Applicants \Update App_1 \\
+  \begin{schema}{EditLastName}
+    \Delta HomestayDatabase \\
+    LN? : LastName \\
+    App_0?, App_1 : Applicant
+  \where
+    App_0? \in Applicants \\
+    App_1 = updateFourthOf5 (App_0?, LN?) \\
+    Applicants' = Applicants \Update App_1 \\
 
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhotos' = UserPhotos \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences \\
-  Postings' = Postings
-\end{schema}
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    HostPreferences' = HostPreferences \\
+    Postings' = Postings
+  \end{schema}
 
-We just need to replace the photo for the applicant.
+  We just need to replace the photo for the applicant.
 
-\begin{schema}{EditPhoto}
-  \Delta HomestayDatabase \\
-  UP? : UserPhoto \\
-  App? : Applicant
-\where
-  UserPhotos' = UserPhotos \oplus \{App? \mapsto UP?\} \\
+  \begin{schema}{EditPhoto}
+    \Delta HomestayDatabase \\
+    UP? : UserPhoto \\
+    App? : Applicant
+  \where
+    UserPhotos' = UserPhotos \oplus \{App? \mapsto UP?\} \\
 
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences \\
-  Postings' = Postings
-\end{schema}
+    Applicants' = Applicants \\
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    HostPreferences' = HostPreferences \\
+    Postings' = Postings
+  \end{schema}
 
-We have to check that the email is not currently used in the system.
-Then update the email for the applicant and ensure the changes cascade throughout the system.
+  We have to check that the email is not currently used in the system.
+  Then update the email for the applicant and ensure the changes cascade throughout the system.
 
-\begin{schema}{EditEmail}
-  \Delta HomestayDatabase \\
-  FN : FirstName\\
-  LN : LastName \\
-  P  : Password \\
-  E?, E  : Email \\
-  AD : AdminFlag
-\where
-  \exists App_0, App_1 : Applicant | App_0 = (E, P, FN, LN, AD) \in Applicants \land \\
-  App_1 = (E?, P, FN, LN, AD) \notin Applicants @ \\
-  Applicants' = Applicants \setminus \{App_0\} \land Applicants' = Applicants \cup \{App_1\} \\
+  \begin{schema}{EditEmail}
+    \Delta HomestayDatabase \\
+    FN : FirstName\\
+    LN : LastName \\
+    P  : Password \\
+    E?, E  : Email \\
+    AD : AdminFlag
+  \where
+    \exists App_0, App_1 : Applicant | App_0 = (E, P, FN, LN, AD) \in Applicants \land \\
+    App_1 = (E?, P, FN, LN, AD) \notin Applicants @ \\
+    Applicants' = Applicants \setminus \{App_0\} \land Applicants' = Applicants \cup \{App_1\} \\
 
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhotos' = UserPhotos \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences \\
-  Postings' = Postings
-\end{schema}
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    HostPreferences' = HostPreferences \\
+    Postings' = Postings
+  \end{schema}
 
-We just need to update the phone number for the applicant.
+  We just need to update the phone number for the applicant.
 
-\begin{schema}{EditPhone}
-  \Delta HomestayDatabase \\
-  PNUM? : Phone \\
-  App? : Applicant
-\where
-  PhoneNumbers' = PhoneNumbers \oplus \{App? \mapsto PNUM?\} \\
+  \begin{schema}{EditPhone}
+    \Delta HomestayDatabase \\
+    PNUM? : Phone \\
+    App? : Applicant
+  \where
+    PhoneNumbers' = PhoneNumbers \oplus \{App? \mapsto PNUM?\} \\
 
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  UserPhotos' = UserPhotos \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences \\
-  Postings' = Postings
-\end{schema}
+    Applicants' = Applicants \\
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    HostPreferences' = HostPreferences \\
+    Postings' = Postings
+  \end{schema}

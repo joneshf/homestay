@@ -3,138 +3,138 @@
   \SECTION login \parents general
 \end{zsection}
 
-When we go to create a new account, we need some information from the user.
-We update all of our sets to reflect the new addition.
-After they have successfully created an account,
-they are taken to the main menu.
+  When we go to create a new account, we need some information from the user.
+  We update all of our sets to reflect the new addition.
+  After they have successfully created an account,
+  they are taken to the main menu.
 
-\begin{schema}{CreateUserAccount}
-  \Delta HomestayDatabase \\
-  E? : Email \\
-  FN? : FirstName \\
-  LN? : LastName \\
-  P? : Password \\
-\where
-  E? \notin Emails \\
-  Emails' = Emails \cup \{E?\}\\
-  Passwords' = Passwords \cup \{P?\}\\
-  Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, NotAdmin)\} \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings \\
-  HostPreferences' = HostPreferences
-\end{schema}
+  \begin{schema}{CreateUserAccount}
+    \Delta HomestayDatabase \\
+    E? : Email \\
+    FN? : FirstName \\
+    LN? : LastName \\
+    P? : Password \\
+  \where
+    E? \notin Emails \\
+    Emails' = Emails \cup \{E?\}\\
+    Passwords' = Passwords \cup \{P?\}\\
+    Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, NotAdmin)\} \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhoto' = UserPhoto \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    Postings' = Postings \\
+    HostPreferences' = HostPreferences
+  \end{schema}
 
-\begin{schema}{CreateAdminAccount}
-  \Delta HomestayDatabase \\
-  E? : Email \\
-  FN? : FirstName \\
-  LN? : LastName \\
-  P? : Password \\
-  AD? : AdminFlag
-\where
-  E? \notin Emails \\
-  AD? = Admin \\
-  Emails' = Emails \cup \{E?\}\\
-  Passwords' = Passwords \cup \{P?\}\\
-  Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, AD?)\} \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Posting \\
-  HostPreferences' = HostPreferences
-\end{schema}
+  \begin{schema}{CreateAdminAccount}
+    \Delta HomestayDatabase \\
+    E? : Email \\
+    FN? : FirstName \\
+    LN? : LastName \\
+    P? : Password \\
+    AD? : AdminFlag
+  \where
+    E? \notin Emails \\
+    AD? = Admin \\
+    Emails' = Emails \cup \{E?\}\\
+    Passwords' = Passwords \cup \{P?\}\\
+    Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, AD?)\} \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhoto' = UserPhoto \\
+    Valid' = Valid \\
+    Invalid' = Invalid \\
+    Postings' = Posting \\
+    HostPreferences' = HostPreferences
+  \end{schema}
 
-A person can create either a user account, or they can create an admin account.
-The idea is that the admin account isn't something that you can specify,
-but you must be given a link to sign up for.
-The link you follow gives the admin flag.
+  A person can create either a user account, or they can create an admin account.
+  The idea is that the admin account isn't something that you can specify,
+  but you must be given a link to sign up for.
+  The link you follow gives the admin flag.
 
-\begin{zed}
-  CreateAccount == CreateUserAccount \lor CreateAdminAccount
-\end{zed}
+  \begin{zed}
+    CreateAccount == CreateUserAccount \lor CreateAdminAccount
+  \end{zed}
 
-To login, a user needs to enter their email and password.
-At this point they are taken to the main menu.
+  To login, a user needs to enter their email and password.
+  At this point they are taken to the main menu.
 
-\begin{schema}{Login}
-  \Xi HomestayDatabase \\
-  E? : Email \\
-  P? : Password \\
-  FN : FirstName \\
-  LN : LastName \\
-  AD : AdminFlag \\
-  Resp! : Response
-\where
-  E? \in Emails \\
-  P? \in Passwords \\
-  (E?, P?, FN, LN, AD) \in Applicants \\
-  Resp! = LoginSuccessful
-\end{schema}
+  \begin{schema}{Login}
+    \Xi HomestayDatabase \\
+    E? : Email \\
+    P? : Password \\
+    FN : FirstName \\
+    LN : LastName \\
+    AD : AdminFlag \\
+    Resp! : Response
+  \where
+    E? \in Emails \\
+    P? \in Passwords \\
+    (E?, P?, FN, LN, AD) \in Applicants \\
+    Resp! = LoginSuccessful
+  \end{schema}
 
-Users can reset their password if they forget it.
-We take an email address, generate a password token, then dish that off to the email address.
-The user then finds the email with the reset token/link and proceeds to reset their password.
+  Users can reset their password if they forget it.
+  We take an email address, generate a password token, then dish that off to the email address.
+  The user then finds the email with the reset token/link and proceeds to reset their password.
 
-This is supposed to be one more step of indirection so that the user wont have their password reset at random.
-Of course, if the email address is already compromised, it doesn't make much difference.
+  This is supposed to be one more step of indirection so that the user wont have their password reset at random.
+  Of course, if the email address is already compromised, it doesn't make much difference.
 
-\begin{schema}{ForgotPassword}
-  \Delta HomestayDatabase \\
-  E? : Email \\
-  T! : PToken \\
-  ID : \nat \\
-  P : Password \\
-  FN : FirstName \\
-  LN : LastName \\
-  AD : AdminFlag
-\where
-  E? \in Emails \\
-  (E?, P, FN, LN, AD) \in Applicants \\
-  ID = \# Valid + \# Invalid + 1 \\
-  T! = ID \mapsto E?\\
+  \begin{schema}{ForgotPassword}
+    \Delta HomestayDatabase \\
+    E? : Email \\
+    T! : PToken \\
+    ID : \nat \\
+    P : Password \\
+    FN : FirstName \\
+    LN : LastName \\
+    AD : AdminFlag
+  \where
+    E? \in Emails \\
+    (E?, P, FN, LN, AD) \in Applicants \\
+    ID = \# Valid + \# Invalid + 1 \\
+    T! = ID \mapsto E?\\
 
-  Valid' = Valid \cup \{T!\} \\
-  Invalid' = Invalid \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Postings' = Postings \\
-  HostPreferences' = HostPreferences
-\end{schema}
+    Valid' = Valid \cup \{T!\} \\
+    Invalid' = Invalid \\
+    Applicants' = Applicants \\
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    UserPhoto' = UserPhoto \\
+    Postings' = Postings \\
+    HostPreferences' = HostPreferences
+  \end{schema}
 
-Once the user has the password token, they can enter their new password.
-We let them know that the reset was successful.
+  Once the user has the password token, they can enter their new password.
+  We let them know that the reset was successful.
 
-\begin{schema}{ResetPassword}
-  \Delta HomestayDatabase \\
-  P?, P : Password \\
-  T? : PToken \\
-  Resp! : Response \\
-  ID : \nat \\
-  E : Email \\
-  FN : FirstName \\
-  LN : LastName \\
-  AD : AdminFlag \\
-  App_0, App_1 : Applicant
-\where
-  T? \in Valid \\
-  E = second \ T? \\
-  Valid' = Valid \setminus \{T?\}\\
-  Invalid' = Invalid \cup \{T?\} \\
-  App_0 = (E, P, FN, LN, AD) \in Applicants \\
-  App_1 = (E, P?, FN, LN, AD) \\
-  Applicants' = Applicants \Update App_1 \\
-  Resp! = PasswordResetSuccessful \\
+  \begin{schema}{ResetPassword}
+    \Delta HomestayDatabase \\
+    P?, P : Password \\
+    T? : PToken \\
+    Resp! : Response \\
+    ID : \nat \\
+    E : Email \\
+    FN : FirstName \\
+    LN : LastName \\
+    AD : AdminFlag \\
+    App_0, App_1 : Applicant
+  \where
+    T? \in Valid \\
+    E = second \ T? \\
+    Valid' = Valid \setminus \{T?\}\\
+    Invalid' = Invalid \cup \{T?\} \\
+    App_0 = (E, P, FN, LN, AD) \in Applicants \\
+    App_1 = (E, P?, FN, LN, AD) \\
+    Applicants' = Applicants \Update App_1 \\
+    Resp! = PasswordResetSuccessful \\
 
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  Postings' = Postings \\
-  HostPreferences' = HostPreferences
-\end{schema}
+    Emails' = Emails \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Postings' = Postings \\
+    HostPreferences' = HostPreferences
+  \end{schema}

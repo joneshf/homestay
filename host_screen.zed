@@ -3,203 +3,211 @@
   \SECTION host \parents general
 \end{zsection}
 
-The host section allows the user to view and modify preferences specific to hosting a location.
-There are some general preferences for each host, e.g. smoking, and pets.
-Then there are preferences for each host location, e.g. price and availability.
+  The host section allows the user to view and modify preferences specific to hosting a location.
+  There are some general preferences for each host, e.g. smoking, and pets.
+  Then there are preferences for each host location, e.g. price and availability.
 
-\subsection{Preferences}
+  \subsection{Preferences}
 
-\begin{schema}{EditHostSmoking}
-  \Delta HomestayDatabase \\
-  H? : HostPreference \\
-  H : HostPreference \\
-  S? : Smoking
-\where
-  H? \in HostPreferences \\
-  H = updateSecondOf6 (H?, S?) \\
-  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings
-\end{schema}
+    \begin{axdef}
+      updateHostPrefs : \power HostPreference \cross HostPreference \fun \power HostPreference
+    \where
+      \forall hp : HostPreference; hps : \power HostPreference @ \\
+      \t1 \exists hp_0 : HostPreference | \\
+      \t2 firstOf6 \ hp_0 = firstOf6 \ hp @ \\
+      \t3 updateHostPrefs (hps, hp) = (hps \setminus \{hp_0\}) \cup \{hp\}
+    \end{axdef}
 
-\begin{schema}{EditHostPets}
-  \Delta HomestayDatabase \\
-  H?, H : HostPreference \\
-  P? : Pets
-\where
-  H? \in HostPreferences \\
-  H = updateThirdOf6 (H?, P?) \\
-  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings
-\end{schema}
+    \begin{schema}{EditHostSmoking}
+      \Delta HomestayDatabase \\
+      H? : HostPreference \\
+      H : HostPreference \\
+      S? : Smoking
+    \where
+      H? \in HostPreferences \\
+      H = updateSecondOf6 (H?, S?) \\
+      HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      Postings' = Postings
+    \end{schema}
 
-\begin{schema}{EditHostChildren}
-  \Delta HomestayDatabase \\
-  H?, H : HostPreference \\
-  C? : Children
-\where
-  H? \in HostPreferences \\
-  H = updateFourthOf6 (H?, C?) \\
-  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings
-\end{schema}
+    \begin{schema}{EditHostPets}
+      \Delta HomestayDatabase \\
+      H?, H : HostPreference \\
+      P? : Pets
+    \where
+      H? \in HostPreferences \\
+      H = updateThirdOf6 (H?, P?) \\
+      HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      Postings' = Postings
+    \end{schema}
 
-\begin{schema}{EditHostDiet}
-  \Delta HomestayDatabase \\
-  H?, H : HostPreference \\
-  D? : Diet
-\where
-  H? \in HostPreferences \\
-  H = updateFifthOf6 (H?, D?) \\
-  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings
-\end{schema}
+    \begin{schema}{EditHostChildren}
+      \Delta HomestayDatabase \\
+      H?, H : HostPreference \\
+      C? : Children
+    \where
+      H? \in HostPreferences \\
+      H = updateFourthOf6 (H?, C?) \\
+      HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      Postings' = Postings
+    \end{schema}
 
-\begin{schema}{EditHostReligion}
-  \Delta HomestayDatabase \\
-  H?, H : HostPreference \\
-  R? : Religion
-\where
-  H? \in HostPreferences \\
-  H = updateSixthOf6 (H?, R?) \\
-  HostPreferences' = updateHostPrefs (HostPreferences, H) \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings
-\end{schema}
+    \begin{schema}{EditHostDiet}
+      \Delta HomestayDatabase \\
+      H?, H : HostPreference \\
+      D? : Diet
+    \where
+      H? \in HostPreferences \\
+      H = updateFifthOf6 (H?, D?) \\
+      HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      Postings' = Postings
+    \end{schema}
 
-\begin{zed}
-  EditHostPreferences == EditHostSmoking \lor \\
-  \t1 EditHostPets \lor \\
-  \t1 EditHostChildren \lor \\
-  \t1 EditHostDiet \lor \\
-  \t1 EditHostReligion
-\end{zed}
+    \begin{schema}{EditHostReligion}
+      \Delta HomestayDatabase \\
+      H?, H : HostPreference \\
+      R? : Religion
+    \where
+      H? \in HostPreferences \\
+      H = updateSixthOf6 (H?, R?) \\
+      HostPreferences' = updateHostPrefs (HostPreferences, H) \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      Postings' = Postings
+    \end{schema}
 
-\subsection{Validation}
+    \begin{zed}
+      EditHostPreferences == EditHostSmoking \lor \\
+      \t1 EditHostPets \lor \\
+      \t1 EditHostChildren \lor \\
+      \t1 EditHostDiet \lor \\
+      \t1 EditHostReligion
+    \end{zed}
 
-So long as the start date is before the end date,
-we consider the Availability to be valid.
+  \subsection{Validation}
 
-\begin{schema}{ValiDateGood}
-  Avail? : Availability \\
-  AvailResp! : Response \\
-  Start, End : Date \\
-  Y_0, Y_1 : Year \\
-  M_0, M_1 : Month \\
-  D_0, D_1 : Day
-\where
-  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = Avail? \\
-  (Y_0 < Y_1) \lor \\
-  \t1 (Y_0 = Y_1 \land month2Nat \ M_0 < month2Nat \ M_1) \lor \\
-  \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 < D_1) \\
-  AvailResp! = ValidAvailability
-\end{schema}
+    So long as the start date is before the end date,
+    we consider the Availability to be valid.
 
-If the start date is after the end date,
-then no bueno.
+    \begin{schema}{ValiDateGood}
+      Avail? : Availability \\
+      AvailResp! : Response \\
+      Start, End : Date \\
+      Y_0, Y_1 : Year \\
+      M_0, M_1 : Month \\
+      D_0, D_1 : Day
+    \where
+      ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = Avail? \\
+      (Y_0 < Y_1) \lor \\
+      \t1 (Y_0 = Y_1 \land month2Nat \ M_0 < month2Nat \ M_1) \lor \\
+      \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 < D_1) \\
+      AvailResp! = ValidAvailability
+    \end{schema}
 
-\begin{schema}{ValiDateBad}
-  Avail? : Availability \\
-  AvailResp! : Response \\
-  Start, End : Date \\
-  Y_0, Y_1 : Year \\
-  M_0, M_1 : Month \\
-  D_0, D_1 : Day
-\where
-  ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = Avail? \\
-  (Y_0 > Y_1) \lor \\
-  \t1 (Y_0 = Y_1 \land month2Nat \ M_0 > month2Nat \ M_1) \lor \\
-  \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 > D_1) \\
-  AvailResp! = InvalidAvailability
-\end{schema}
+    If the start date is after the end date,
+    then no bueno.
 
-\begin{zed}
-  ValiDate == ValiDateGood \lor ValiDateBad
-\end{zed}
+    \begin{schema}{ValiDateBad}
+      Avail? : Availability \\
+      AvailResp! : Response \\
+      Start, End : Date \\
+      Y_0, Y_1 : Year \\
+      M_0, M_1 : Month \\
+      D_0, D_1 : Day
+    \where
+      ((M_0, D_0, Y_0), (M_1, D_1, Y_1)) = Avail? \\
+      (Y_0 > Y_1) \lor \\
+      \t1 (Y_0 = Y_1 \land month2Nat \ M_0 > month2Nat \ M_1) \lor \\
+      \t1 (Y_0 = Y_1 \land M_0 = M_1 \land D_0 > D_1) \\
+      AvailResp! = InvalidAvailability
+    \end{schema}
 
-\subsection{Postings}
-%Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
-To create a new posting, the host enters all the relevant information for hosting
+    \begin{zed}
+      ValiDate == ValiDateGood \lor ValiDateBad
+    \end{zed}
 
-\begin{schema}{NewPosting}
-  \Delta HomestayDatabase \\
-  ValiDate \\
-  H? : HostPreference \\
-  Addr? : Address \\
-  E? : ExactOrArea \\
-  WIDTH? : \nat \\
-  LENGTH? : \nat \\
-  PR? : Price \\
-  Avail? : Availability \\
-  PH? : Photo \\
-  P : Posting \\
-  AI : AddressInfo \\
-  S : SizeOfRoom \\
-  AvailResp! : Response
-\where
-  AvailResp! = ValidAvailability \\
-  AI = Addr? \mapsto E? \\
-  S = WIDTH? \mapsto LENGTH? \\
-  P = (H?, AI, S, PR?, Avail?, PH?) \\
-  Postings' = Postings \cup \{P\} \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences
-\end{schema}
+  \subsection{Postings}
+  %Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
+    To create a new posting, the host enters all the relevant information for hosting
 
-Deleting a post removes the post from Postings
+    \begin{schema}{NewPosting}
+      \Delta HomestayDatabase \\
+      ValiDate \\
+      H? : HostPreference \\
+      Addr? : Address \\
+      E? : ExactOrArea \\
+      WIDTH? : \nat \\
+      LENGTH? : \nat \\
+      PR? : Price \\
+      Avail? : Availability \\
+      PH? : Photo \\
+      P : Posting \\
+      AI : AddressInfo \\
+      S : SizeOfRoom \\
+      AvailResp! : Response
+    \where
+      AvailResp! = ValidAvailability \\
+      AI = Addr? \mapsto E? \\
+      S = WIDTH? \mapsto LENGTH? \\
+      P = (H?, AI, S, PR?, Avail?, PH?) \\
+      Postings' = Postings \cup \{P\} \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      HostPreferences' = HostPreferences
+    \end{schema}
 
-\begin{schema}{DeletePosting}
-  \Delta HomestayDatabase \\
-  P? : Posting
-\where
-  P? \in Postings \\
-  Postings' = Postings \setminus \{P?\} \\
-  Applicants' = Applicants \\
-  Emails' = Emails \\
-  Passwords' = Passwords \\
-  PhoneNumbers' = PhoneNumbers \\
-  UserPhoto' = UserPhoto \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  HostPreferences' = HostPreferences
-\end{schema}
+    Deleting a post removes the post from Postings
 
+    \begin{schema}{DeletePosting}
+      \Delta HomestayDatabase \\
+      P? : Posting
+    \where
+      P? \in Postings \\
+      Postings' = Postings \setminus \{P?\} \\
+      Applicants' = Applicants \\
+      Emails' = Emails \\
+      Passwords' = Passwords \\
+      PhoneNumbers' = PhoneNumbers \\
+      UserPhotos' = UserPhotos \\
+      Valid' = Valid \\
+      Invalid' = Invalid \\
+      HostPreferences' = HostPreferences
+    \end{schema}

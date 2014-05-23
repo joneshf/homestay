@@ -3,298 +3,310 @@
   \SECTION general \parents homestay, updates
 \end{zsection}
 
-We want to have a few basic types here.
-We need to know general information about all of the users in the system:
-\begin{itemize}
-  \item Email address, this is the unique identifier in the system
-  \item Password, this has restrictions:
-   \begin{itemize}
-     \item At least 8 characters in length
-     \item 1 digit
-     \item 1 uppercase character
-     \item 1 lowercase character
-   \end{itemize}
-  \item First name, should be non-empty
-  \item Last name, should be non-empty
-\end{itemize}
+  We want to have a few basic types here.
+  We need to know general information about all of the users in the system:
+  \begin{itemize}
+    \item Email address, this is the unique identifier in the system
+    \item Password, this has restrictions:
+     \begin{itemize}
+       \item At least 8 characters in length
+       \item 1 digit
+       \item 1 uppercase character
+       \item 1 lowercase character
+     \end{itemize}
+    \item First name, should be non-empty
+    \item Last name, should be non-empty
+  \end{itemize}
 
-\begin{zed}
-  [ Email, Password, FirstName, LastName ]
-\end{zed}
+  \begin{zed}
+    [ Email \\
+    , Password \\
+    , FirstName \\
+    , LastName \\
+    , StreetNumber \\
+    , StreetName \\
+    , City \\
+    , State \\
+    , ZipCode \\
+    , Phone \\
+    , Photo \\
+    ]
+  \end{zed}
 
-\begin{zed}
-  Month ::= January \\
-  \t1 | February \\
-  \t1 | March \\
-  \t1 | April \\
-  \t1 | May \\
-  \t1 | June \\
-  \t1 | July \\
-  \t1 | August \\
-  \t1 | September \\
-  \t1 | October \\
-  \t1 | November \\
-  \t1 | December \\
-  Day == \nat \\
-  Year == \nat
-\end{zed}
+  We create a couple of synonyms for photo types.
 
-We want to know whether or not the user is an admin or not.
-This is used so that they get access to certain features in the application.
+  \begin{zed}
+    PostingPhoto == Photo \\
+    UserPhoto == Photo
+  \end{zed}
 
-\begin{zed}
-  AdminFlag ::= \\
-  \t1 Admin \\
-  \t1 | NotAdmin
-\end{zed}
+  We're going to construct a date type.
 
-\begin{zed}
-  InappropriateFlag ::= \\
-  \t1 Zero \\
-  \t1 | First \\
-  \t1 | Second \\
-  \t1 | Third \\
-  \t1 | Remove
-\end{zed}
+  \begin{zed}
+    Month ::= January \\
+    \t1 | February \\
+    \t1 | March \\
+    \t1 | April \\
+    \t1 | May \\
+    \t1 | June \\
+    \t1 | July \\
+    \t1 | August \\
+    \t1 | September \\
+    \t1 | October \\
+    \t1 | November \\
+    \t1 | December \\
+    Day == \nat \\
+    Year == \nat \\
+    Date == Month \cross Day \cross Year
+  \end{zed}
 
-Using these basic types we construct more complex types in the system.
-The applicant is the user of the system.
-Password tokens are used to reset the password.
+  We'll need a couple of flags.
 
-\begin{zed}
-  Applicant == Email \cross Password \cross FirstName \cross LastName \cross AdminFlag \\
-  PToken == \nat \cross Email \\
-  Date == Month \cross Day \cross Year \\
-  IFlag == Email \cross InappropriateFlag
-\end{zed}
+  We want to know whether or not the user is an admin or not.
+  This is used so that they get access to certain features in the application.
 
-We need to be able to notify the user of what is happening in the application.
-So, we enumerate the possible responses from actions taken.
+  \begin{zed}
+    AdminFlag ::= \\
+    \t1 Admin \\
+    \t1 | NotAdmin \\
+    InappropriateFlag ::= \\
+    \t1 Zero \\
+    \t1 | First \\
+    \t1 | Second \\
+    \t1 | Third \\
+    \t1 | Remove
+  \end{zed}
 
-\begin{zed}
-  Response ::= \\
-  \t1 InvalidToken \\
-  \t1 | PasswordResetSuccessful \\
-  \t1 | LoginSuccessful \\
-  \t1 | InvalidAvailability \\
-  \t1 | ValidAvailability
-\end{zed}
+  We need to know about the host stuff.
 
-We need to know about the host stuff.
+  \begin{zed}
+    Smoking ::= \\
+    \t1 EnjoysSmoking \\
+    \t1 | NonSmoking \\
+    Pets ::= \\
+    \t1 NoPets \\
+    \t1 | YesPets \\
+    Children ::= \\
+    \t1 One \\
+    \t1 | Two \\
+    \t1 | ThreePlus \\
+    Diet ::= \\
+    \t1 GlutenFree \\
+    \t1 | Omnivore \\
+    \t1 | Pescatarian \\
+    \t1 | Vegetarian \\
+    \t1 | Vegan \\
+    \t1 | OtherDiet \\
+    Religion ::= \\
+    \t1 Agnostic \\
+    \t1 | Athiest \\
+    \t1 | Buddhist \\
+    \t1 | Christian \\
+    \t1 | Catholic \\
+    \t1 | Mormon \\
+    \t1 | Muslim \\
+    \t1 | OtherReligion \\
+    ExactOrArea ::= \\
+    \t1 ExactLocation \\
+    \t1 | Area
+  \end{zed}
 
-\begin{zed}
-  Smoking ::= \\
-  \t1 EnjoysSmoking \\
-  \t1 | NonSmoking \\
-  Pets ::= \\
-  \t1 NoPets \\
-  \t1 | YesPets \\
-  Children ::= \\
-  \t1 One \\
-  \t1 | Two \\
-  \t1 | ThreePlus \\
-  Diet ::= \\
-  \t1 GlutenFree \\
-  \t1 | Omnivore \\
-  \t1 | Pescatarian \\
-  \t1 | Vegetarian \\
-  \t1 | Vegan \\
-  \t1 | OtherDiet \\
-  Religion ::= \\
-  \t1 Agnostic \\
-  \t1 | Athiest \\
-  \t1 | Buddhist \\
-  \t1 | Christian \\
-  \t1 | Catholic \\
-  \t1 | Mormon \\
-  \t1 | Muslim \\
-  \t1 | OtherReligion \\
-\end{zed}
+  Using these basic types we construct more complex types in the system.
+  The applicant is the user of the system.
+  Password tokens are used to reset the password.
 
-Does the host want to post the exact location of his/her home or a general area where the home exists inside of?
+  \begin{zed}
+    Applicant == Email \cross Password \cross FirstName \cross LastName \cross AdminFlag \\
+    PToken == \nat \cross Email \\
+    IFlag == Email \cross InappropriateFlag
+  \end{zed}
 
-\begin{zed}
-  ExactOrArea ::= ExactLocation | Area \\
-\end{zed}
-\begin{zed}
-  [ StreetNumber, StreetName, City, State, ZipCode, Phone, Photo ]
-\end{zed}
+  Now want to create some stuff specific to the host,
+  but that needs to be used by other parts of the application.
 
-\begin{zed}
-  PostingPhoto == Photo \\
-  UserPhoto == Photo
-\end{zed}
+  \begin{zed}
+    Price == \nat \\
+    SizeOfRoom == \nat \cross \nat \\
+    Address == StreetNumber \cross StreetName \cross City \cross State \cross ZipCode \\
+    AddressInfo == Address \cross ExactOrArea \\
+    Availability == Date \cross Date \\
+    HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
+    Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
+  \end{zed}
 
-\begin{zed}
-  Price == \nat \\
-  SizeOfRoom == \nat \cross \nat \\
-  Address == StreetNumber \cross StreetName \cross City \cross State \cross ZipCode \\
-  AddressInfo == Address \cross ExactOrArea \\
-  Availability == Date \cross Date \\
-  HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
-  Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
-\end{zed}
+  We need to be able to notify the user of what is happening in the application.
+  So, we enumerate the possible responses from actions taken.
 
-Our initial state is just a bunch of empty sets.
+  \begin{zed}
+    Response ::= \\
+    \t1 InvalidToken \\
+    \t1 | PasswordResetSuccessful \\
+    \t1 | LoginSuccessful \\
+    \t1 | InvalidAvailability \\
+    \t1 | ValidAvailability
+  \end{zed}
 
-\begin{schema}{HomestayInitial}
-  Applicants : \power Applicant \\
-  Emails : \power Email \\
-  Passwords : \power Password \\
-  PhoneNumbers : \power (Applicant \cross Phone) \\
-  UserPhotos : \power (Applicant \cross Photo) \\
-  Valid, Invalid : \power PToken \\
-  IFlags : \power IFlag \\
-  Postings : \power Posting \\
-  HostPreferences : \power HostPreference
-\where
-  Applicants = \emptyset \\
-  Emails = \emptyset \\
-  Passwords = \emptyset \\
-  PhoneNumbers = \emptyset \\
-  UserPhotos = \emptyset \\
-  Valid = Invalid = \emptyset \\
-  IFlags = \emptyset \\
-  Postings = \emptyset \\
-  HostPreferences = \emptyset
-\end{schema}
+  \subsection{Application State}
 
-In the database we need to ensure that there is each email address is unique,
-and that the password tokens are either valid or invalid.
+    Our initial state is just a bunch of empty sets.
 
-\begin{schema}{HomestayDatabase}
-  HomestayInitial
-\where
-  \forall e_0, e_1 : Email; p_0, p_1 : Password; fn_0, fn_1 : FirstName; ln_0, ln_1 : LastName @ \\
-  \t1 e_0 = e_1 \implies (p_0 = p_1 \land fn_0 = fn_1 \land ln_0 = ln_1) \\
-  Valid \cap Invalid = \emptyset
-\end{schema}
+    \begin{schema}{HomestayInitial}
+      Applicants : \power Applicant \\
+      Emails : \power Email \\
+      Passwords : \power Password \\
+      PhoneNumbers : \power (Applicant \cross Phone) \\
+      UserPhotos : \power (Applicant \cross Photo) \\
+      Valid, Invalid : \power PToken \\
+      IFlags : \power IFlag \\
+      Postings : \power Posting \\
+      HostPreferences : \power HostPreference
+    \where
+      Applicants = \emptyset \\
+      Emails = \emptyset \\
+      Passwords = \emptyset \\
+      PhoneNumbers = \emptyset \\
+      UserPhotos = \emptyset \\
+      Valid = Invalid = \emptyset \\
+      IFlags = \emptyset \\
+      Postings = \emptyset \\
+      HostPreferences = \emptyset
+    \end{schema}
 
-\subsection{General Operators}
+    In the database we need to ensure that there is each email address is unique,
+    and that the password tokens are either valid or invalid.
 
-It gets kind of silly to have to rewrite these operators and functions each time,
-so we have some helpers here.
+    \begin{schema}{HomestayDatabase}
+      HomestayInitial
+    \where
+      \forall e_0, e_1 : Email; p_0, p_1 : Password; fn_0, fn_1 : FirstName; ln_0, ln_1 : LastName @ \\
+      \t1 e_0 = e_1 \implies (p_0 = p_1 \land fn_0 = fn_1 \land ln_0 = ln_1) \\
+      Valid \cap Invalid = \emptyset
+    \end{schema}
 
-We want an easy way to update an applicant.
-This helper function updates the applicant in the set of all applicants,
-identified by the email address.
+    We want an easy way to update an applicant.
+    This helper function updates the applicant in the set of all applicants,
+    identified by the email address.
 
-\begin{gendef}[A, B, C, D, E, F]
-  firstOf3  == \lambda a : A; b : B; c : C @ a \\
-  secondOf3 == \lambda a : A; b : B; c : C @ b \\
-  thirdOf3  == \lambda a : A; b : B; c : C @ c \\
+    \newcommand{\Update}{\mathbin{\otimes}}
 
-  firstOf4  == \lambda a : A; b : B; c : C; d : D @ a \\
-  secondOf4 == \lambda a : A; b : B; c : C; d : D @ b \\
-  thirdOf4  == \lambda a : A; b : B; c : C; d : D @ c \\
-  fourthOf4 == \lambda a : A; b : B; c : C; d : D @ d \\
-
-  firstOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ a \\
-  secondOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ b \\
-  thirdOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ c \\
-  fourthOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ d \\
-  fifthOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ e \\
-
-  firstOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ a \\
-  secondOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ b \\
-  thirdOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ c \\
-  fourthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ d \\
-  fifthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ e \\
-  sixthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ f \\
-\end{gendef}
-
-% Bring in the update stuff.
-
-\input{update}
-
-We're going to Greenspun up some stuff.
-
-\begin{zed}
-  Ord ::= LT | EQ | GT
-\end{zed}
-
-\begin{axdef}
-  month2Nat : Month \fun \nat
-\where
-  month2Nat \ January    = 1  \land \\
-  month2Nat \ February   = 2  \land \\
-  month2Nat \ March      = 3  \land \\
-  month2Nat \ April      = 4  \land \\
-  month2Nat \ May        = 5  \land \\
-  month2Nat \ June       = 6  \land \\
-  month2Nat \ July       = 7  \land \\
-  month2Nat \ August     = 8  \land \\
-  month2Nat \ September  = 9  \land \\
-  month2Nat \ October    = 10 \land \\
-  month2Nat \ November   = 11 \land \\
-  month2Nat \ December   = 12
-\end{axdef}
-
-\begin{axdef}
-  InFlag2Nat : InappropriateFlag \fun \nat
-\where
-  InFlag2Nat \ Zero    = 0  \land \\
-  InFlag2Nat \ First   = 1  \land \\
-  InFlag2Nat \ Second  = 2  \land \\
-  InFlag2Nat \ Third   = 3  \land \\
-  InFlag2Nat \ Remove  = 4
-\end{axdef}
-
-\begin{axdef}
-  Nat2InFlag : \nat \pfun InappropriateFlag
-\where
-  Nat2InFlag \ 0 = Zero  \land \\
-  Nat2InFlag \ 1 = First  \land \\
-  Nat2InFlag \ 2 = Second \land \\
-  Nat2InFlag \ 3 = Third  \land \\
-  Nat2InFlag \ 4 = Remove
-\end{axdef}
-
-\newcommand{\Update}{\mathbin{\otimes}}
+% This is apparently a directive in CZT so it cannot be indented.
 %%Zinchar \Update U+229A;
-\begin{zed}
-  \function 42 \leftassoc ( \varg \Update \varg )
-\end{zed}
-\begin{axdef}
-  \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
-\where
-  \forall a_1 : Applicant ; as : \power Applicant @ \\
-  \t1 \exists p_0, p_1 : Password; \\
-  \t1 fn_0, fn_1 : FirstName; \\
-  \t1 ln_0, ln_1 : LastName; \\
-  \t1 ad_0, ad_1 : AdminFlag; \\
-  \t1 e : Email; \\
-  \t1 a_0 : Applicant | \\
-  \t2 a_1 = (e, p_1, fn_1, ln_1, ad_1) \land (a_0 = (e, p_0, fn_0, ln_0, ad_0) \in as) @ \\
-  \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
-\end{axdef}
 
-\begin{axdef}
-  updateHostPrefs : \power HostPreference \cross HostPreference \fun \power HostPreference
-\where
-  \forall hp : HostPreference; hps : \power HostPreference @ \\
-  \t1 \exists hp_0 : HostPreference | \\
-  \t2 firstOf6 \ hp_0 = firstOf6 \ hp @ \\
-  \t3 updateHostPrefs (hps, hp) = (hps \setminus \{hp_0\}) \cup \{hp\}
-\end{axdef}
+    \begin{zed}
+      \function 42 \leftassoc ( \varg \Update \varg )
+    \end{zed}
+    \begin{axdef}
+      \varg \Update \varg : \power Applicant \cross Applicant \fun \power Applicant
+    \where
+      \forall a_1 : Applicant ; as : \power Applicant @ \\
+      \t1 \exists p_0, p_1 : Password; \\
+      \t1 fn_0, fn_1 : FirstName; \\
+      \t1 ln_0, ln_1 : LastName; \\
+      \t1 ad_0, ad_1 : AdminFlag; \\
+      \t1 e : Email; \\
+      \t1 a_0 : Applicant | \\
+      \t2 a_1 = (e, p_1, fn_1, ln_1, ad_1) \land (a_0 = (e, p_0, fn_0, ln_0, ad_0) \in as) @ \\
+      \t3 as \Update a_1 = (as \setminus \{a_0\}) \cup \{a_1\}
+    \end{axdef}
 
-\begin{schema}{RemoveUser}
-  \Delta HomestayDatabase \\
-  A? : Applicant\\
-  E : Email \\
-  P : Password \\
-  FN : FirstName \\
-  LN : LastName \\
-  AF : AdminFlag
-\where
-  (E, P, FN, LN, AF) = A? \\
-  Applicants' = Applicants \setminus \{A?\} \\
-  Emails' = Emails \setminus \{E\} \\
-  HostPreferences' = HostPreferences \\
-  PhoneNumbers' = PhoneNumbers \\
-  Passwords' = Passwords \\
-  UserPhotos' = UserPhotos \\
-  Valid' = Valid \\
-  Invalid' = Invalid \\
-  Postings' = Postings
-\end{schema}
+
+  \subsection{General Operators}
+
+    It gets kind of silly to have to rewrite these operators and functions each time,
+    so we have some helpers here.
+
+    \subsubsection{General Projections}
+
+      \begin{gendef}[A, B, C]
+        firstOf3  == \lambda a : A; b : B; c : C @ a \\
+        secondOf3 == \lambda a : A; b : B; c : C @ b \\
+        thirdOf3  == \lambda a : A; b : B; c : C @ c \\
+      \end{gendef}
+
+      \begin{gendef}[A, B, C, D]
+        firstOf4  == \lambda a : A; b : B; c : C; d : D @ a \\
+        secondOf4 == \lambda a : A; b : B; c : C; d : D @ b \\
+        thirdOf4  == \lambda a : A; b : B; c : C; d : D @ c \\
+        fourthOf4 == \lambda a : A; b : B; c : C; d : D @ d \\
+      \end{gendef}
+
+      \begin{gendef}[A, B, C, D, E]
+        firstOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ a \\
+        secondOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ b \\
+        thirdOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ c \\
+        fourthOf5 == \lambda a : A; b : B; c : C; d : D; e : E @ d \\
+        fifthOf5  == \lambda a : A; b : B; c : C; d : D; e : E @ e \\
+      \end{gendef}
+
+      \begin{gendef}[A, B, C, D, E, F]
+        firstOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ a \\
+        secondOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ b \\
+        thirdOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ c \\
+        fourthOf6 == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ d \\
+        fifthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ e \\
+        sixthOf6  == \lambda a : A; b : B; c : C; d : D; e : E; f : F @ f \\
+      \end{gendef}
+
+      % Bring in the update stuff.
+
+      \input{updates}
+
+  \subsection{Morphisms}
+
+    \subsubsection{Month}
+
+      \begin{axdef}
+        month2Nat : Month \fun \nat
+      \where
+        month2Nat \ January    = 1  \land \\
+        month2Nat \ February   = 2  \land \\
+        month2Nat \ March      = 3  \land \\
+        month2Nat \ April      = 4  \land \\
+        month2Nat \ May        = 5  \land \\
+        month2Nat \ June       = 6  \land \\
+        month2Nat \ July       = 7  \land \\
+        month2Nat \ August     = 8  \land \\
+        month2Nat \ September  = 9  \land \\
+        month2Nat \ October    = 10 \land \\
+        month2Nat \ November   = 11 \land \\
+        month2Nat \ December   = 12
+      \end{axdef}
+
+      \begin{axdef}
+        nat2Month : \nat \pfun Month
+      \where
+        nat2Month \ 1  = January   \land \\
+        nat2Month \ 2  = February  \land \\
+        nat2Month \ 3  = March     \land \\
+        nat2Month \ 4  = April     \land \\
+        nat2Month \ 5  = May       \land \\
+        nat2Month \ 6  = June      \land \\
+        nat2Month \ 7  = July      \land \\
+        nat2Month \ 8  = August    \land \\
+        nat2Month \ 9  = September \land \\
+        nat2Month \ 10 = October   \land \\
+        nat2Month \ 11 = November  \land \\
+        nat2Month \ 12 = December
+      \end{axdef}
+
+    \subsubsection{InappropriateFlag}
+
+      \begin{axdef}
+        InFlag2Nat : InappropriateFlag \fun \nat
+      \where
+        InFlag2Nat \ Zero    = 0  \land \\
+        InFlag2Nat \ First   = 1  \land \\
+        InFlag2Nat \ Second  = 2  \land \\
+        InFlag2Nat \ Third   = 3  \land \\
+        InFlag2Nat \ Remove  = 4
+      \end{axdef}
+
+      \begin{axdef}
+        Nat2InFlag : \nat \pfun InappropriateFlag
+      \where
+        Nat2InFlag \ 0 = Zero  \land \\
+        Nat2InFlag \ 1 = First  \land \\
+        Nat2InFlag \ 2 = Second \land \\
+        Nat2InFlag \ 3 = Third  \land \\
+        Nat2InFlag \ 4 = Remove
+      \end{axdef}
