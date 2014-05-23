@@ -7,10 +7,6 @@ The host section allows the user to view and modify preferences specific to host
 There are some general preferences for each host, e.g. smoking, and pets.
 Then there are preferences for each host location, e.g. price and availability.
 
-\begin{zed}
-[ Postings ]
-\end{zed}
-
 \begin{schema}{EditHostSmoking}
   \Delta HomestayDatabase \\
   H? : HostPreference \\
@@ -140,6 +136,7 @@ then no bueno.
 %Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
 
 \begin{schema}{NewPosting}
+  \Delta HomestayDatabase \\
   P? : Posting \\
   H : HostPreference \\
   A? : Address \\
@@ -160,12 +157,26 @@ then no bueno.
   AI? = A? \mapsto E? \\
   S? = WIDTH? \mapsto LENGTH? \\
   P? = (H, AI?, S?, PR?, AV) \\
-  Postings \cup P?
+  Postings' = Postings \cup \{P?\} \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  HostPreferences' = HostPreferences
 \end{schema}
 
 \begin{schema}{DeletePosting}
+  \Delta HomestayDatabase \\
   P? : Posting
 \where
-  Postings \setminus P?
+  P? \in Postings \\
+  Postings' = Postings \setminus \{P?\} \\
+  Applicants' = Applicants \\
+  Emails' = Emails \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  HostPreferences' = HostPreferences
 \end{schema}
 
