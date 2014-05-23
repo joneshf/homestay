@@ -20,7 +20,7 @@
     Passwords' = Passwords \cup \{P?\}\\
     Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, NotAdmin)\} \\
     PhoneNumbers' = PhoneNumbers \\
-    UserPhoto' = UserPhoto \\
+    UserPhotos' = UserPhotos \\
     Valid' = Valid \\
     Invalid' = Invalid \\
     Postings' = Postings \\
@@ -41,7 +41,7 @@
     Passwords' = Passwords \cup \{P?\}\\
     Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, AD?)\} \\
     PhoneNumbers' = PhoneNumbers \\
-    UserPhoto' = UserPhoto \\
+    UserPhotos' = UserPhotos \\
     Valid' = Valid \\
     Invalid' = Invalid \\
     Postings' = Posting \\
@@ -103,7 +103,7 @@
     Emails' = Emails \\
     Passwords' = Passwords \\
     PhoneNumbers' = PhoneNumbers \\
-    UserPhoto' = UserPhoto \\
+    UserPhotos' = UserPhotos \\
     Postings' = Postings \\
     HostPreferences' = HostPreferences
   \end{schema}

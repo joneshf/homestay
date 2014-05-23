@@ -2,3 +2,21 @@
 \begin{zsection}
   \SECTION student \parents general
 \end{zsection}
+
+The student will search by entering his/her/its preference information.
+Preferences include: Availability, Area, Room Size, Price, Children, Diet, Pets, Religion, and Smoking.
+
+\begin{schema}{SelectPreferences}
+  \Xi HomestayDatabase \\
+  AV? : Availability \\
+  MILES? : MilesFromCampus \\
+  SIZE? : SizeOfRoom \\
+  PRICE? : Price \\
+  CHILD? : Children \\
+  DIET? : Diet \\
+  PET? : Pet \\
+  REL? : Religion \\
+  SMOK? : Smoking 
+\where
+  
+\end{schema}

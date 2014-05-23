@@ -111,6 +111,11 @@
     \t1 ExactLocation \\
     \t1 | Area
   \end{zed}
+  
+  We need to know about the student stuff.
+  \begin{zed}
+  MilesFromCampus == \nat
+  \end{zed}
 
   Using these basic types we construct more complex types in the system.
   The applicant is the user of the system.
