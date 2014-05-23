@@ -162,3 +162,10 @@ then no bueno.
   P? = (H, AI?, S?, PR?, AV) \\
   Postings \cup P?
 \end{schema}
+
+\begin{schema}{DeletePosting}
+  P? : Posting
+\where
+  Postings \setminus P?
+\end{schema}
+
