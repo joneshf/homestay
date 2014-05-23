@@ -19,6 +19,7 @@ they are taken to the main menu.
   Emails' = Emails \cup \{E?\}\\
   Passwords' = Passwords \cup \{P?\}\\
   Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, NotAdmin)\} \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings \\
@@ -38,6 +39,7 @@ they are taken to the main menu.
   Emails' = Emails \cup \{E?\}\\
   Passwords' = Passwords \cup \{P?\}\\
   Applicants' = Applicants \cup \{(E?, P?, FN?, LN?, AD?)\} \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Posting \\
@@ -98,6 +100,7 @@ Of course, if the email address is already compromised, it doesn't make much dif
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Postings' = Postings \\
   HostPreferences' = HostPreferences
 \end{schema}
@@ -128,6 +131,7 @@ We let them know that the reset was successful.
 
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Postings' = Postings \\
   HostPreferences' = HostPreferences
 \end{schema}

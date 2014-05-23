@@ -19,6 +19,7 @@ Then there are preferences for each host location, e.g. price and availability.
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings
@@ -35,6 +36,7 @@ Then there are preferences for each host location, e.g. price and availability.
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings
@@ -51,6 +53,7 @@ Then there are preferences for each host location, e.g. price and availability.
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings
@@ -67,6 +70,7 @@ Then there are preferences for each host location, e.g. price and availability.
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings
@@ -83,6 +87,7 @@ Then there are preferences for each host location, e.g. price and availability.
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   Postings' = Postings
@@ -134,6 +139,7 @@ then no bueno.
 \end{zed}
 
 %Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
+To create a new posting, the host enters all the relevant information for hosting
 
 \begin{schema}{NewPosting}
   \Delta HomestayDatabase \\
@@ -151,20 +157,24 @@ then no bueno.
   WIDTH? : \nat \\
   LENGTH? : \nat \\
   PR? : Price \\
-  AV : Availability
+  AV : Availability \\
+  PH? : Photo
 \where
   A? = (SNUM?, SNAME?, CITY?, ST?, ZIP?) \\
   AI? = A? \mapsto E? \\
   S? = WIDTH? \mapsto LENGTH? \\
-  P? = (H, AI?, S?, PR?, AV) \\
+  P? = (H, AI?, S?, PR?, AV, PH?) \\
   Postings' = Postings \cup \{P?\} \\
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   HostPreferences' = HostPreferences
 \end{schema}
+
+Deleting a post takes the post of Postings
 
 \begin{schema}{DeletePosting}
   \Delta HomestayDatabase \\
@@ -175,6 +185,7 @@ then no bueno.
   Applicants' = Applicants \\
   Emails' = Emails \\
   Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
   Valid' = Valid \\
   Invalid' = Invalid \\
   HostPreferences' = HostPreferences

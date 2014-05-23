@@ -102,13 +102,19 @@ Does the host want to post the exact location of his/her home or a general area 
 \end{zed}
 
 \begin{zed}
+  Pic ::= AnyPicture \\
+  Photo == Pic \\
+  Phone == \nat \\
+\end{zed}
+
+\begin{zed}
   Price == \nat \\
   SizeOfRoom == \nat \cross \nat \\
   Address == StreetNumber \cross StreetName \cross City \cross State \cross ZipCode \\
   AddressInfo == Address \cross ExactOrArea \\
   Availability == Date \cross Date \\ 
   HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
-  Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability
+  Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross Photo
 \end{zed}
 
 Our initial state is just a bunch of empty sets.
@@ -117,6 +123,7 @@ Our initial state is just a bunch of empty sets.
   Applicants : \power Applicant \\
   Emails : \power Email \\
   Passwords : \power Password \\
+  PhoneNumbers : \power Phone \\
   Valid, Invalid : \power PToken \\
   IFlags : \power IFlag \\
   Postings : \power Posting \\
@@ -125,6 +132,7 @@ Our initial state is just a bunch of empty sets.
   Applicants = \emptyset \\
   Emails = \emptyset \\
   Passwords = \emptyset \\
+  PhoneNumbers = \emptyset \\
   Valid = Invalid = \emptyset \\
   IFlags = \emptyset
   Postings = \emptyset \\
