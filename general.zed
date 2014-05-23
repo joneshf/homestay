@@ -202,3 +202,22 @@ We're going to Greenspun up some stuff.
   \t2 firstOf3 \ hp_0 = firstOf3 \ hp @ \\
   \t3 updateHostPrefs (hps, hp) = (hps \setminus \{hp_0\}) \cup \{hp\}
 \end{axdef}
+
+\begin{schema}{RemoveUser}
+  \Delta HomestayDatabase \\
+  A? : Applicant\\
+  E : Email \\
+  P : Password \\
+  FN : FirstName \\
+  LN : LastName \\
+  AF : AdminFlag
+\where
+  (E, P, FN, LN, AF) = A? \\
+  Applicants' = Applicants \setminus \{A?\} \\
+  Emails' = Emails \setminus \{E\} \\
+  HostPreferences' = HostPreferences \\
+  Passwords' = Passwords \\
+  Valid' = Valid \\
+  Invalid' = Invalid \\
+  Postings' = Postings
+\end{schema}
