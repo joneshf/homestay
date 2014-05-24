@@ -26,7 +26,7 @@
     Postings' = Postings \\
     HostPreferences' = HostPreferences \\
     Searches' = Searches \\
-    StudentPreferences' = StudentPreferences
+
   \end{schema}
 
   \begin{schema}{CreateAdminAccount}
@@ -49,7 +49,7 @@
     Postings' = Posting \\
     HostPreferences' = HostPreferences \\
     Searches' = Searches \\
-    StudentPreferences' = StudentPreferences
+
   \end{schema}
 
   A person can create either a user account, or they can create an admin account.
@@ -111,7 +111,7 @@
     Postings' = Postings \\
     HostPreferences' = HostPreferences \\
     Searches' = Searches \\
-    StudentPreferences' = StudentPreferences
+
   \end{schema}
 
   Once the user has the password token, they can enter their new password.
@@ -144,5 +144,5 @@
     Postings' = Postings \\
     HostPreferences' = HostPreferences \\
     Searches' = Searches \\
-    StudentPreferences' = StudentPreferences
+
   \end{schema}

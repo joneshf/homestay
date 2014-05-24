@@ -4,65 +4,85 @@
 \end{zsection}
 
 The student will search by entering his/her/its preference information.
-Preferences include: Availability, Area, Room Size, Price, Children, Diet, Pets, Religion, and Smoking.
-
-\begin{schema}{SelectPreferences}
-  \Xi HomestayDatabase \\
-  AV? : Availability \\
-  MILES? : MilesFromCampus \\
-  SIZE? : SizeOfRoom \\
-  PRICE? : Price \\
-  CHILD? : Children \\
-  DIET? : Diet \\
-  PET? : Pets \\
-  REL? : Religion \\
-  SMOK? : Smoking 
-\where
-  PREDS
-\end{schema}
+Preferences include: Children, Diet, Pets, Religion, and Smoking.
 
 If the student likes what he/she/it sees, he/she/it can save the search.
 
 \begin{schema}{SaveSearch}
   \Delta HomestayDatabase \\
-  AV? : Availability \\
-  MILES? : MilesFromCampus \\
-  SIZE? : SizeOfRoom \\
-  PRICE? : Price \\
-  CHILD? : Children \\
-  DIET? : Diet \\
-  PET? : Pets \\
-  REL? : Religion \\
-  SMOK? : Smoking 
+  S? : Search
 \where
-  PREDS
+  Searches' = Searches \cup \{S?\} \\
+
+  Applicants' = Applicants \\
+  Chats' = Chats \\
+  Emails' = Emails \\
+  HostPreferences' = HostPreferences \\
+  IFlags' = IFlags \\
+  Invalid' = Invalid \\
+  Matches' = Matches \\
+  Passwords' = Passwords \\
+  PhoneNumbers' = PhoneNumbers \\
+  Postings' = Postings \\
+  UserPhotos' = UserPhotos \\
+  Valid' = Valid
 \end{schema}
 
-\begin{schema}{RecallSearch}
+\begin{schema}{RecallSearches}
   \Xi HomestayDatabase \\
-  AV! : Availability \\
-  MILES! : MilesFromCampus \\
-  SIZE! : SizeOfRoom \\
-  PRICE! : Price \\
-  CHILD! : Children \\
-  DIET! : Diet \\
-  PET! : Pets \\
-  REL! : Religion \\
-  SMOK! : Smoking 
+  App? : Applicant \\
+  S! : \power Search
 \where
-  PREDS
-\end{schema}
-
-\begin{schema}{ViewPosting}
-  \Xi HomestayDatabase
-\where
-  PREDS
+  S! = \{App?\} \dres Searches
 \end{schema}
 
 \begin{schema}{SubmitChatRequest}
-  DECLS
+  \Delta HomestayDatabase \\
+  From?, To? : Applicant
 \where
-  PREDS
+  ChatRequests' = ChatRequests \cup \{(From?, To?)\} \\
+
+  Applicants = \emptyset \\
+  Chats = \emptyset \\
+  Emails = \emptyset \\
+  HostPreferences = \emptyset \\
+  IFlags = \emptyset \\
+  Invalid = \emptyset \\
+  Matches = \emptyset \\
+  Passwords = \emptyset \\
+  PhoneNumbers = \emptyset \\
+  Postings = \emptyset \\
+  Searches = \emptyset \\
+  UserPhotos = \emptyset \\
+  Valid = \emptyset
 \end{schema}
 
+When performing the search,
+we need to match all of the student's preferences with any hosts.
+In the actual application we will want to have priority levels as well as this simple matching.
 
+The priority levels will weight the hosts for the automatic search.
+
+\begin{axdef}
+  dropApplicant : HostPreference \fun (Smoking \cross Pets \cross Children \cross Diet \cross Religion)
+\where
+  \forall hp : HostPreference @ \\
+  \t1 \exists a: Applicant; s : Smoking; p : Pets; c : Children; d : Diet; r : Religion | \\
+  \t1 hp = (a, s, p, c, d, r) @ \\
+  \t2 dropApplicant \ hp = (s, p, c, d, r)
+\end{axdef}
+
+\begin{schema}{PerformSearch}
+  \Xi HomestayDatabase \\
+  S? : StudentPreference \\
+  HostPrefs! : \power HostPreference \\
+  A, A_0 : Applicant \\
+  StudentSmoking : Smoking \\
+  StudentPets : Pets \\
+  StudentChildren : Children \\
+  StudentDiet : Diet \\
+  StudentReligion : Religion
+\where
+  A_0 \mapsto (StudentSmoking, StudentPets, StudentChildren, StudentDiet, StudentReligion) = S? \\
+  HostPrefs! = \{(A, StudentSmoking, StudentPets, StudentChildren, StudentDiet, StudentReligion)\} \cap HostPreferences
+\end{schema}

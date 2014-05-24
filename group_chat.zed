@@ -29,7 +29,7 @@
     PhoneNumbers' = PhoneNumbers \\
     Postings' = Postings \\
     UserPhotos' = UserPhotos \\
-    Valid' = Valid \\
+    Valid' = Valid
   \end{schema}
 
   \begin{schema}{ApproveSynergy}

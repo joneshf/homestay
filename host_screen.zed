@@ -36,7 +36,7 @@
       Invalid' = Invalid \\
       Postings' = Postings \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences
+
     \end{schema}
 
     \begin{schema}{EditHostPets}
@@ -56,7 +56,7 @@
       Invalid' = Invalid \\
       Postings' = Postings \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences
+
     \end{schema}
 
     \begin{schema}{EditHostChildren}
@@ -76,7 +76,7 @@
       Invalid' = Invalid \\
       Postings' = Postings \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences
+
     \end{schema}
 
     \begin{schema}{EditHostDiet}
@@ -96,7 +96,7 @@
       Invalid' = Invalid \\
       Postings' = Postings \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences
+
     \end{schema}
 
     \begin{schema}{EditHostReligion}
@@ -116,7 +116,7 @@
       Invalid' = Invalid \\
       Postings' = Postings \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences
+
     \end{schema}
 
     \begin{zed}
@@ -203,7 +203,7 @@
       Invalid' = Invalid \\
       HostPreferences' = HostPreferences \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences 
+
     \end{schema}
 
     Deleting a post removes the post from Postings
@@ -223,5 +223,5 @@
       Invalid' = Invalid \\
       HostPreferences' = HostPreferences \\
       Searches' = Searches \\
-      StudentPreferences' = StudentPreferences
+
     \end{schema}

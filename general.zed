@@ -111,7 +111,7 @@
     \t1 ExactLocation \\
     \t1 | Area
   \end{zed}
-  
+
   We need to know about the student stuff.
   \begin{zed}
   MilesFromCampus == \nat
@@ -148,13 +148,13 @@
     HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
     Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
   \end{zed}
-  
+
   Now want to create some stuff specific to the host,
   but that needs to be used by other parts of the application.
-  
+
   \begin{zed}
-    StudentPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
-    Search == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
+    StudentPreference == Applicant \cross (Smoking \cross Pets \cross Children \cross Diet \cross Religion) \\
+    Search == StudentPreference
   \end{zed}
 
   We need to be able to notify the user of what is happening in the application.
@@ -175,33 +175,34 @@
 
     \begin{schema}{HomestayInitial}
       Applicants : \power Applicant \\
+      Chats : \power Message \\
+      ChatRequests : \power (Applicant \cross Applicant) \\
       Emails : \power Email \\
+      HostPreferences : \power HostPreference \\
+      IFlags : \power IFlag \\
+      Invalid : \power PToken \\
+      Matches : \power (Applicant \cross Applicant \cross MatchFlag) \\
       Passwords : \power Password \\
       PhoneNumbers : \power (Applicant \cross Phone) \\
-      UserPhotos : \power (Applicant \cross Photo) \\
-      Valid, Invalid : \power PToken \\
-      IFlags : \power IFlag \\
       Postings : \power Posting \\
-      HostPreferences : \power HostPreference \\
       Searches : \power Search \\
-      StudentPreferences : \power StudentPreference \\
-      Chats : \power Message \\
-      Matches : \power (Applicant \cross Applicant \cross MatchFlag)
+      UserPhotos : \power (Applicant \cross Photo) \\
+      Valid : \power PToken
     \where
       Applicants = \emptyset \\
       Chats = \emptyset \\
+      ChatRequests = \emptyset \\
       Emails = \emptyset \\
       HostPreferences = \emptyset \\
       IFlags = \emptyset \\
+      Invalid = \emptyset \\
       Matches = \emptyset \\
       Passwords = \emptyset \\
       PhoneNumbers = \emptyset \\
       Postings = \emptyset \\
-      HostPreferences = \emptyset \\
       Searches = \emptyset \\
-      StudentPreferences = \emptyset \\
       UserPhotos = \emptyset \\
-      Valid = Invalid = \emptyset
+      Valid = \emptyset
     \end{schema}
 
     In the database we need to ensure that there is each email address is unique,
