@@ -2,3 +2,67 @@
 \begin{zsection}
   \SECTION student \parents general
 \end{zsection}
+
+The student will search by entering his/her/its preference information.
+Preferences include: Availability, Area, Room Size, Price, Children, Diet, Pets, Religion, and Smoking.
+
+\begin{schema}{SelectPreferences}
+  \Xi HomestayDatabase \\
+  AV? : Availability \\
+  MILES? : MilesFromCampus \\
+  SIZE? : SizeOfRoom \\
+  PRICE? : Price \\
+  CHILD? : Children \\
+  DIET? : Diet \\
+  PET? : Pets \\
+  REL? : Religion \\
+  SMOK? : Smoking 
+\where
+  PREDS
+\end{schema}
+
+If the student likes what he/she/it sees, he/she/it can save the search.
+
+\begin{schema}{SaveSearch}
+  \Delta HomestayDatabase \\
+  AV? : Availability \\
+  MILES? : MilesFromCampus \\
+  SIZE? : SizeOfRoom \\
+  PRICE? : Price \\
+  CHILD? : Children \\
+  DIET? : Diet \\
+  PET? : Pets \\
+  REL? : Religion \\
+  SMOK? : Smoking 
+\where
+  PREDS
+\end{schema}
+
+\begin{schema}{RecallSearch}
+  \Xi HomestayDatabase \\
+  AV! : Availability \\
+  MILES! : MilesFromCampus \\
+  SIZE! : SizeOfRoom \\
+  PRICE! : Price \\
+  CHILD! : Children \\
+  DIET! : Diet \\
+  PET! : Pets \\
+  REL! : Religion \\
+  SMOK! : Smoking 
+\where
+  PREDS
+\end{schema}
+
+\begin{schema}{ViewPosting}
+  \Xi HomestayDatabase
+\where
+  PREDS
+\end{schema}
+
+\begin{schema}{SubmitChatRequest}
+  DECLS
+\where
+  PREDS
+\end{schema}
+
+

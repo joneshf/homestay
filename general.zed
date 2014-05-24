@@ -111,6 +111,11 @@
     \t1 ExactLocation \\
     \t1 | Area
   \end{zed}
+  
+  We need to know about the student stuff.
+  \begin{zed}
+  MilesFromCampus == \nat
+  \end{zed}
 
   We need to know how the two people feel about each other.
 
