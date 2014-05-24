@@ -117,6 +117,14 @@
   MilesFromCampus == \nat
   \end{zed}
 
+  We need to know how the two people feel about each other.
+
+  \begin{zed}
+    MatchFlag ::= \\
+    \t1 Accept \\
+    \t1 | Reject \\
+  \end{zed}
+
   Using these basic types we construct more complex types in the system.
   The applicant is the user of the system.
   Password tokens are used to reset the password.
@@ -125,7 +133,7 @@
     Applicant == Email \cross Password \cross FirstName \cross LastName \cross AdminFlag \\
     PToken == \nat \cross Email \\
     IFlag == Email \cross InappropriateFlag \\
-    Message == Applicant \cross Applicant \cross Text
+    Message == (Applicant \cross Applicant) \cross Text
   \end{zed}
 
   Now want to create some stuff specific to the host,
@@ -176,19 +184,24 @@
       Postings : \power Posting \\
       HostPreferences : \power HostPreference \\
       Searches : \power Search \\
-      StudentPreferences : \power StudentPreference
+      StudentPreferences : \power StudentPreference \\
+      Chats : \power Message \\
+      Matches : \power (Applicant \cross Applicant \cross MatchFlag)
     \where
       Applicants = \emptyset \\
+      Chats = \emptyset \\
       Emails = \emptyset \\
+      HostPreferences = \emptyset \\
+      IFlags = \emptyset \\
+      Matches = \emptyset \\
       Passwords = \emptyset \\
       PhoneNumbers = \emptyset \\
-      UserPhotos = \emptyset \\
-      Valid = Invalid = \emptyset \\
-      IFlags = \emptyset \\
       Postings = \emptyset \\
       HostPreferences = \emptyset \\
       Searches = \emptyset \\
-      StudentPreferences = \emptyset
+      StudentPreferences = \emptyset \\
+      UserPhotos = \emptyset \\
+      Valid = Invalid = \emptyset
     \end{schema}
 
     In the database we need to ensure that there is each email address is unique,

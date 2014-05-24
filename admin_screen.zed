@@ -9,12 +9,6 @@
   their accept/reject match to the admin, the admin will have final approval to accept or reject the match.
 
   \begin{zed}
-    MatchFlag ::= \\
-    \t1 Accept \\
-    \t1 | Reject
-  \end{zed}
-
-  \begin{zed}
     AcceptMessage ::= \\
     \t1 OneAccept \\
     \t1 | TwoAccepts \\
@@ -60,7 +54,7 @@
   \begin{schema}{AdminInappropriate}
     \Delta HomestayDatabase \\
     M? : AcceptMessage \\
-    E? : Email   \\
+    E? : Email \\
     I : IFlag \\
     In, In2 : InappropriateFlag
   \where

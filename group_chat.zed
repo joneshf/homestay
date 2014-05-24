@@ -2,3 +2,93 @@
 \begin{zsection}
   \SECTION group_chat \parents general
 \end{zsection}
+
+  We want the user to be able to see all the chats they are a part of.
+  When they see the chats, they should have a few options.
+  \begin{itemize}
+    \item Add a new message to a chat.
+    \item Approve the union of Student and Host synergy.
+    \item Disapprove the union of Student and Host synergy.
+    \item Delete the chat.
+  \end{itemize}
+
+  \begin{schema}{AddMessage}
+    \Delta HomestayDatabase \\
+    From?, To? : Applicant \\
+    Msg? : Text
+  \where
+    Chats' = Chats \cup \{(From?, To?) \mapsto Msg?\} \\
+
+    Applicants' = Applicants \\
+    Emails' = Emails \\
+    HostPreferences' = HostPreferences \\
+    IFlags' = IFlags \\
+    Invalid' = Invalid \\
+    Matches' = Matches \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Postings' = Postings \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid \\
+  \end{schema}
+
+  \begin{schema}{ApproveSynergy}
+    \Delta HomestayDatabase \\
+    Match? : MatchFlag \\
+    App_0?, App_1? : Applicant
+  \where
+    Match? = Accept \\
+    Matches' = Matches \cup \{(App_0?, App_1?, Match?)\} \\
+
+    Applicants' = Applicants \\
+    Chats' = Chats \\
+    Emails' = Emails \\
+    HostPreferences' = HostPreferences \\
+    IFlags' = IFlags \\
+    Invalid' = Invalid \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Postings' = Postings \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid
+  \end{schema}
+
+  \begin{schema}{DisapproveSynergy}
+    \Delta HomestayDatabase \\
+    Match? : MatchFlag \\
+    App_0?, App_1? : Applicant
+  \where
+    Match? = Reject \\
+    Matches' = Matches \cup \{(App_0?, App_1?, Match?)\} \\
+
+    Applicants' = Applicants \\
+    Chats' = Chats \\
+    Emails' = Emails \\
+    HostPreferences' = HostPreferences \\
+    IFlags' = IFlags \\
+    Invalid' = Invalid \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Postings' = Postings \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid
+  \end{schema}
+
+  \begin{schema}{DeleteChat}
+    \Delta HomestayDatabase \\
+    From?, To? : Applicant
+  \where
+    Chats' = \{(From?, To?)\} \ndres Chats \\
+
+    Applicants' = Applicants \\
+    Emails' = Emails \\
+    HostPreferences' = HostPreferences \\
+    IFlags' = IFlags \\
+    Invalid' = Invalid \\
+    Matches' = Matches \\
+    Passwords' = Passwords \\
+    PhoneNumbers' = PhoneNumbers \\
+    Postings' = Postings \\
+    UserPhotos' = UserPhotos \\
+    Valid' = Valid
+  \end{schema}
