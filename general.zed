@@ -140,6 +140,14 @@
     HostPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
     Posting == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
   \end{zed}
+  
+  Now want to create some stuff specific to the host,
+  but that needs to be used by other parts of the application.
+  
+  \begin{zed}
+    StudentPreference == Applicant \cross Smoking \cross Pets \cross Children \cross Diet \cross Religion \\
+    Search == HostPreference \cross AddressInfo \cross SizeOfRoom \cross Price \cross Availability \cross PostingPhoto
+  \end{zed}
 
   We need to be able to notify the user of what is happening in the application.
   So, we enumerate the possible responses from actions taken.
@@ -166,7 +174,9 @@
       Valid, Invalid : \power PToken \\
       IFlags : \power IFlag \\
       Postings : \power Posting \\
-      HostPreferences : \power HostPreference
+      HostPreferences : \power HostPreference \\
+      Searches : \power Search \\
+      StudentPreferences : \power StudentPreference
     \where
       Applicants = \emptyset \\
       Emails = \emptyset \\
@@ -176,7 +186,9 @@
       Valid = Invalid = \emptyset \\
       IFlags = \emptyset \\
       Postings = \emptyset \\
-      HostPreferences = \emptyset
+      HostPreferences = \emptyset \\
+      Searches = \emptyset \\
+      StudentPreferences = \emptyset
     \end{schema}
 
     In the database we need to ensure that there is each email address is unique,

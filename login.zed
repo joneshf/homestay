@@ -24,7 +24,9 @@
     Valid' = Valid \\
     Invalid' = Invalid \\
     Postings' = Postings \\
-    HostPreferences' = HostPreferences
+    HostPreferences' = HostPreferences \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}
 
   \begin{schema}{CreateAdminAccount}
@@ -45,7 +47,9 @@
     Valid' = Valid \\
     Invalid' = Invalid \\
     Postings' = Posting \\
-    HostPreferences' = HostPreferences
+    HostPreferences' = HostPreferences \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}
 
   A person can create either a user account, or they can create an admin account.
@@ -105,7 +109,9 @@
     PhoneNumbers' = PhoneNumbers \\
     UserPhotos' = UserPhotos \\
     Postings' = Postings \\
-    HostPreferences' = HostPreferences
+    HostPreferences' = HostPreferences \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}
 
   Once the user has the password token, they can enter their new password.
@@ -136,5 +142,7 @@
     Passwords' = Passwords \\
     PhoneNumbers' = PhoneNumbers \\
     Postings' = Postings \\
-    HostPreferences' = HostPreferences
+    HostPreferences' = HostPreferences \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}

@@ -24,6 +24,8 @@
     Invalid' = Invalid \\
     HostPreferences' = HostPreferences \\
     Postings' = Postings \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences \\
     UserPhotos' = UserPhotos
   \end{schema}
 
@@ -45,7 +47,9 @@
     Valid' = Valid \\
     Invalid' = Invalid \\
     HostPreferences' = HostPreferences \\
-    Postings' = Postings
+    Postings' = Postings \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}
 
   We just need to replace the photo for the applicant.
@@ -64,7 +68,9 @@
     Valid' = Valid \\
     Invalid' = Invalid \\
     HostPreferences' = HostPreferences \\
-    Postings' = Postings
+    Postings' = Postings \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}
 
   We have to check that the email is not currently used in the system.
@@ -89,7 +95,9 @@
     Valid' = Valid \\
     Invalid' = Invalid \\
     HostPreferences' = HostPreferences \\
-    Postings' = Postings
+    Postings' = Postings \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}
 
   We just need to update the phone number for the applicant.
@@ -108,5 +116,7 @@
     Valid' = Valid \\
     Invalid' = Invalid \\
     HostPreferences' = HostPreferences \\
-    Postings' = Postings
+    Postings' = Postings \\
+    Searches' = Searches \\
+    StudentPreferences' = StudentPreferences
   \end{schema}

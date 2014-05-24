@@ -34,7 +34,9 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      Postings' = Postings
+      Postings' = Postings \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences
     \end{schema}
 
     \begin{schema}{EditHostPets}
@@ -52,7 +54,9 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      Postings' = Postings
+      Postings' = Postings \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences
     \end{schema}
 
     \begin{schema}{EditHostChildren}
@@ -70,7 +74,9 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      Postings' = Postings
+      Postings' = Postings \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences
     \end{schema}
 
     \begin{schema}{EditHostDiet}
@@ -88,7 +94,9 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      Postings' = Postings
+      Postings' = Postings \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences
     \end{schema}
 
     \begin{schema}{EditHostReligion}
@@ -106,7 +114,9 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      Postings' = Postings
+      Postings' = Postings \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences
     \end{schema}
 
     \begin{zed}
@@ -191,7 +201,9 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      HostPreferences' = HostPreferences
+      HostPreferences' = HostPreferences \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences 
     \end{schema}
 
     Deleting a post removes the post from Postings
@@ -209,5 +221,7 @@
       UserPhotos' = UserPhotos \\
       Valid' = Valid \\
       Invalid' = Invalid \\
-      HostPreferences' = HostPreferences
+      HostPreferences' = HostPreferences \\
+      Searches' = Searches \\
+      StudentPreferences' = StudentPreferences
     \end{schema}
