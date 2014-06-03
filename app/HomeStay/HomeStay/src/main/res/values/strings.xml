@@ -2,8 +2,47 @@
 <resources>
 
     <string name="app_name">HomeStay</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="action_new_preference">New Preference</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_host">Host</string>
+    <string name="title_activity_add_preference">AddPreferenceActivity</string>
+    <string name="hello_world">Hello world!</string>
 
+    <string-array name="preference_smoking">
+        <item>Smoke all day</item>
+        <item>No Smoking</item>
+    </string-array>
+    <string-array name="preference_pets">
+        <item>Love Pets</item>
+        <item>Kill those things</item>
+    </string-array>
+    <string-array name="preference_children">
+        <item>No kids</item>
+        <item>One kid</item>
+        <item>Two kids</item>
+        <item>Hella kids</item>
+    </string-array>
+    <string-array name="preference_diet">
+        <item>GlutenFree</item>
+        <item>Omnivore</item>
+        <item>Pescatarian</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>OtherDiet</item>
+    </string-array>
+    <string-array name="preference_religion">
+        <item>Agnostic</item>
+        <item>Athiest</item>
+        <item>Buddhist</item>
+        <item>Christian</item>
+        <item>Catholic</item>
+        <item>Mormon</item>
+        <item>Muslim</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="preference_eoa">
+        <item>Exact location</item>
+        <item>Radius of area</item>
+    </string-array>
 </resources>

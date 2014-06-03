@@ -19,5 +19,6 @@
         android:text="Host"
         android:id="@+id/button2"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:onClick="gotoHost" />
 </LinearLayout>

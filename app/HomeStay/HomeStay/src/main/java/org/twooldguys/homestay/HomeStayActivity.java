@@ -21,4 +21,9 @@ public class HomeStayActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void gotoHost(View view) {
+        Intent intent = new Intent(this, HostActivity.class);
+        startActivity(intent);
+    }
+
 }
