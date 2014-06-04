@@ -7,28 +7,11 @@ import android.widget._
 import android.widget.AdapterView.OnItemSelectedListener
 
 import com.mongodb._
+import scala.concurrent.{ExecutionContext, Future}
+import ExecutionContext.Implicits.global
 import scalaz._
 import Scalaz._
 import android.view.View.OnClickListener
-import android.content.Context
-
-
-//This is broken because scala doesn't like to play with varags and inheritance apparently.
-class CreatePreference(context: Context) extends AsyncTask[AnyRef, Void, String] {
-  override protected def doInBackground(ps: AnyRef*): String = {
-    val prefs = ps.asInstanceOf[Seq[BasicDBObject]]
-    val uri = new MongoClientURI("mongodb://twooldguys:WowSoOld@ds041218.mongolab.com:41218/homestay")
-    val client = new MongoClient(uri)
-    val prefDB = client.getDB("homestay").getCollection("hostPreferences")
-    for (pref <- prefs) {
-      prefDB.insert(pref)
-    }
-    "Good to go!"
-  }
-
-  override def onPostExecute(result: String) =
-    Toast.makeText(context.getApplicationContext, result, Toast.LENGTH_SHORT).show
-}
 
 class AddPreferenceActivity extends ActionBarActivity {
   lazy val spinnerAndVals = List(
@@ -43,7 +26,6 @@ class AddPreferenceActivity extends ActionBarActivity {
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_add_preference)
-//    createNewPreference
 
     val create = findViewById(R.id.create_new_preference).asInstanceOf[Button]
     create.setOnClickListener(new OnClickListener {
@@ -52,7 +34,6 @@ class AddPreferenceActivity extends ActionBarActivity {
 
     for ((id, arr) <- spinnerAndVals) {
       setupSpinners(id, arr)
-      val spinner = findViewById(id).asInstanceOf[Spinner]
     }
   }
 
@@ -76,12 +57,20 @@ class AddPreferenceActivity extends ActionBarActivity {
   }
 
   def createNewPreference = {
-    val pref = new BasicDBObject("smoking", smoking)
+    val name = findViewById(R.id.preference_name).asInstanceOf[TextView]
+    name.getText.toString
+    val pref = new BasicDBObject("name", name)
+      .append("smoking", smoking)
       .append("pets", pets)
       .append("children", children)
       .append("diet", diet)
       .append("religion", religion)
       .append("eoa", eoa)
-    new CreatePreference(this).execute(pref)
+    Future {
+      val uri = new MongoClientURI("mongodb://twooldguys:WowSoOld@ds041218.mongolab.com:41218/homestay")
+      val client = new MongoClient(uri)
+      val prefDB = client.getDB("homestay").getCollection("hostPreferences")
+      prefDB.insert(pref)
+    }
   }
 }
