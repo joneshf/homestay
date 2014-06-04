@@ -1,11 +1,10 @@
 package org.twooldguys.homestay;
 
-import android.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -18,6 +17,21 @@ public class SearchActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        // Get a handle to the Map Fragment
+        GoogleMap map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map)).getMap();
+
+        LatLng ucdavis = new LatLng(38.54, -121.75);
+
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(ucdavis, 13));
+
+        map.addMarker(new MarkerOptions()
+                .title("UC Davis")
+                .snippet("Where the famous Karl Levitt works")
+                .position(ucdavis));
+
     }
 
 
