@@ -67,7 +67,8 @@ class AddPreferenceActivity extends ActionBarActivity {
       .append("religion", religion)
       .append("eoa", eoa)
     Future {
-      val uri = new MongoClientURI("mongodb://twooldguys:WowSoOld@ds041218.mongolab.com:41218/homestay")
+      val uri =
+        new MongoClientURI("mongodb://twooldguys:WowSoOld@ds041218.mongolab.com:41218/homestay")
       val client = new MongoClient(uri)
       val prefDB = client.getDB("homestay").getCollection("hostPreferences")
       prefDB.insert(pref)

@@ -32,9 +32,7 @@ public class SearchActivity extends ActionBarActivity {
                 .title("UC Davis")
                 .snippet("Where the famous Karl Levitt works")
                 .position(ucdavis));
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

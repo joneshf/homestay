@@ -12,6 +12,7 @@ import ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 import scala.collection.JavaConversions._
 import com.mongodb.{BasicDBObject, MongoClient, MongoClientURI}
+import android.app.Activity
 
 class HomeStayActivity extends ActionBarActivity {
   protected override def onCreate(savedInstanceState: Bundle) {
@@ -19,34 +20,12 @@ class HomeStayActivity extends ActionBarActivity {
     setContentView(R.layout.activity_home_stay)
   }
 
-  def gotoStudent(view: View) {
-    val intent: Intent = new Intent(this, classOf[SearchActivity])
-    startActivity(intent)
-  }
+  def gotoStudent(view: View) = gotoActivity(new SearchActivity)
 
-  def gotoHost(view: View) {
-//    // Should be able to swap this out with a db-backed collection and the rest just works.
-//    val f: Future[Array[String]] = Future {
-//      //    val prefs = allPrefs
-//      allPrefs
-//    }
-//    f onComplete {
-//      case Success(prefs) => {
-//        for (pref <- prefs) {
-//          Toast.makeText(this, pref, Toast.LENGTH_SHORT)
-//        }
-//      }
-//      case Failure(reason) => Toast.makeText(this, reason.getMessage, Toast.LENGTH_LONG)
-//    }
-    val intent: Intent = new Intent(this, classOf[HostActivity])
-//    intent.putExtra("prefs", prefs)
+  def gotoHost(view: View) = gotoActivity(new HostActivity)
+
+  def gotoActivity(act: Activity) = {
+    val intent: Intent = new Intent(this, act.getClass)
     startActivity(intent)
-  }
-  def allPrefs: Array[String] = {
-    val uri = new MongoClientURI("mongodb://twooldguys:WowSoOld@ds041218.mongolab.com:41218/homestay")
-    val client = new MongoClient(uri)
-    val prefDB = client.getDB("homestay").getCollection("hostPreferences")
-    val cursor = prefDB.find(new BasicDBObject, new BasicDBObject("name", 1))
-    cursor.toArray.map(_.get("name").toString).toArray
   }
 }
