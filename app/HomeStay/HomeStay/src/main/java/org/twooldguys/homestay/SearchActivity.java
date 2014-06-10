@@ -19,18 +19,20 @@ public class SearchActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        // Get a handle to the Map Fragment
         GoogleMap map = ((MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
 
-        LatLng sydney = new LatLng(-33.867, 151.206);
+        LatLng ucdavis = new LatLng(38.54, -121.75);
 
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(ucdavis, 13));
 
         map.addMarker(new MarkerOptions()
-                .title("Sydney")
-                .snippet("The most populous city in Australia.")
-                .position(sydney));
+                .title("UC Davis")
+                .snippet("Where the famous Karl Levitt works")
+                .position(ucdavis));
+
     }
 
 
