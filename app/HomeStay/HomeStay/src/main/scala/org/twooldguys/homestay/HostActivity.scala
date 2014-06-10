@@ -16,9 +16,7 @@ import android.app.ListActivity
 
 
 class HostActivity extends ActionBarActivity {
-  implicit def funToRunnable(fun: () => Unit) = new Runnable() { def run() = fun() }
-
-  protected override def onCreate(savedInstanceState: Bundle) {
+  override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_host)
 

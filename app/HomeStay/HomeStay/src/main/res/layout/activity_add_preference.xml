@@ -38,7 +38,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/preference_children"
+        android:id="@+id/preference_family"
         android:layout_below="@+id/preference_pets"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/preference_diet"
-        android:layout_below="@+id/preference_children"
+        android:layout_below="@+id/preference_family"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

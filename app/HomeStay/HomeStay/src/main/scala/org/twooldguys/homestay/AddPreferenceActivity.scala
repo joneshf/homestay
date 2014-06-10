@@ -9,15 +9,14 @@ import android.widget.AdapterView.OnItemSelectedListener
 import com.mongodb._
 import scala.concurrent.{ExecutionContext, Future}
 import ExecutionContext.Implicits.global
-import scalaz._
-import Scalaz._
-import android.view.View.OnClickListener
+ import android.view.View.OnClickListener
+import scala.util.{Failure, Success}
 
 class AddPreferenceActivity extends ActionBarActivity {
   lazy val spinnerAndVals = List(
     (R.id.preference_smoking, R.array.preference_smoking),
     (R.id.preference_pets, R.array.preference_pets),
-    (R.id.preference_children, R.array.preference_children),
+    (R.id.preference_family, R.array.preference_family),
     (R.id.preference_diet, R.array.preference_diet),
     (R.id.preference_religion, R.array.preference_religion),
     (R.id.preference_eoa, R.array.preference_eoa)
@@ -29,7 +28,13 @@ class AddPreferenceActivity extends ActionBarActivity {
 
     val create = findViewById(R.id.create_new_preference).asInstanceOf[Button]
     create.setOnClickListener(new OnClickListener {
-      override def onClick(v: View): Unit = createNewPreference
+      println("Setting listener")
+      override def onClick(v: View): Unit = createNewPreference onComplete {
+        case Success(_) =>
+          Toast.makeText(getApplicationContext, "Preference added", Toast.LENGTH_SHORT)
+        case Failure(e) =>
+          Toast.makeText(getApplicationContext, e.getMessage, Toast.LENGTH_SHORT)
+      }
     })
 
     for ((id, arr) <- spinnerAndVals) {
@@ -39,7 +44,7 @@ class AddPreferenceActivity extends ActionBarActivity {
 
   def smoking:  String = spinnerValue(R.id.preference_smoking)
   def pets:     String = spinnerValue(R.id.preference_pets)
-  def children: String = spinnerValue(R.id.preference_children)
+  def children: String = spinnerValue(R.id.preference_family)
   def diet:     String = spinnerValue(R.id.preference_diet)
   def religion: String = spinnerValue(R.id.preference_religion)
   def eoa:      String = spinnerValue(R.id.preference_eoa)
@@ -66,12 +71,18 @@ class AddPreferenceActivity extends ActionBarActivity {
       .append("diet", diet)
       .append("religion", religion)
       .append("eoa", eoa)
+    println("Got the pref all setup")
     Future {
+      println("Creating uri")
       val uri =
         new MongoClientURI("mongodb://twooldguys:WowSoOld@ds041218.mongolab.com:41218/homestay")
+      println("Creating client")
       val client = new MongoClient(uri)
+      println("getting collection")
       val prefDB = client.getDB("homestay").getCollection("hostPreferences")
+      println("inserting")
       prefDB.insert(pref)
+      println("DONE!")
     }
   }
 }

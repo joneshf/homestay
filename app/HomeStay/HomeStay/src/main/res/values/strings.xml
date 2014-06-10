@@ -4,45 +4,83 @@
     <string name="app_name">HomeStay</string>
     <string name="action_new_preference">New Preference</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
     <string name="title_activity_search">Search</string>
     <string name="title_activity_host">Host</string>
     <string name="title_activity_add_preference">AddPreferenceActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="prefs">Prefs</string>
+    <string name="dont_care">Don\'t care</string>
+    <string name="non_smoking">Non Smoking</string>
+    <string name="smoking">Smoking</string>
+    <string name="pets">Pets</string>
+    <string name="no_pets">No Pets</string>
+    <string name="cats">Cats</string>
+    <string name="dogs">Dogs</string>
+    <string name="family">Family</string>
+    <string name="two_parents">2 parents</string>
+    <string name="mom">Mom</string>
+    <string name="dad">Dad</string>
+    <string name="zero_kids">0 kids</string>
+    <string name="one_kid">1 kid</string>
+    <string name="two_kids">2 kids</string>
+    <string name="other_family">Other</string>
+    <string name="gluten_free">GlutenFree</string>
+    <string name="omnivore">Omnivore</string>
+    <string name="pescatarian">Pescatarian</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="other_diet">OtherDiet</string>
+    <string name="agnostic">Agnostic</string>
+    <string name="atheist">Atheist</string>
+    <string name="buddhist">Buddhist</string>
+    <string name="christian">Christian</string>
+    <string name="catholic">Catholic</string>
+    <string name="mormon">Mormon</string>
+    <string name="muslim">Muslim</string>
+    <string name="other_religion">Other</string>
+    <string name="exact_location">Exact location</string>
+    <string name="radius_of_area">Radius of area</string>
 
     <string-array name="preference_smoking">
-        <item>Smoke all day</item>
-        <item>No Smoking</item>
+        <item>@string/dont_care</item>
+        <item>@string/non_smoking</item>
+        <item>@string/smoking</item>
     </string-array>
     <string-array name="preference_pets">
-        <item>Love Pets</item>
-        <item>Kill those things</item>
+        <item>@string/no_pets</item>
+        <item>@string/cats</item>
+        <item>@string/dogs</item>
     </string-array>
-    <string-array name="preference_children">
-        <item>No kids</item>
-        <item>One kid</item>
-        <item>Two kids</item>
-        <item>Hella kids</item>
+    <string-array name="preference_family">
+        <item>@string/two_parents</item>
+        <item>@string/mom</item>
+        <item>@string/dad</item>
+        <item>@string/zero_kids</item>
+        <item>@string/one_kid</item>
+        <item>@string/two_kids</item>
+        <item>@string/other_family</item>
     </string-array>
     <string-array name="preference_diet">
-        <item>GlutenFree</item>
-        <item>Omnivore</item>
-        <item>Pescatarian</item>
-        <item>Vegetarian</item>
-        <item>Vegan</item>
-        <item>OtherDiet</item>
+        <item>@string/gluten_free</item>
+        <item>@string/omnivore</item>
+        <item>@string/pescatarian</item>
+        <item>@string/vegetarian</item>
+        <item>@string/vegan</item>
+        <item>@string/other_diet</item>
     </string-array>
     <string-array name="preference_religion">
-        <item>Agnostic</item>
-        <item>Athiest</item>
-        <item>Buddhist</item>
-        <item>Christian</item>
-        <item>Catholic</item>
-        <item>Mormon</item>
-        <item>Muslim</item>
-        <item>Other</item>
+        <item>@string/agnostic</item>
+        <item>@string/atheist</item>
+        <item>@string/buddhist</item>
+        <item>@string/christian</item>
+        <item>@string/catholic</item>
+        <item>@string/mormon</item>
+        <item>@string/muslim</item>
+        <item>@string/other_religion</item>
     </string-array>
     <string-array name="preference_eoa">
-        <item>Exact location</item>
-        <item>Radius of area</item>
+        <item>@string/exact_location</item>
+        <item>@string/radius_of_area</item>
     </string-array>
 </resources>

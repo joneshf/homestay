@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        sothree:panelHeight="68dp"
+        sothree:panelHeight="48dp"
         sothree:shadowHeight="4dp"
         sothree:dragView="@+id/preferenceSlider">
 
@@ -28,9 +28,8 @@
             <TextView
                 android:id="@+id/preferenceSlider"
                 android:layout_width="wrap_content"
-                android:layout_height="68dp"
-                android:text="Preferences"
-                android:textSize="16sp"
+                android:layout_height="48dp"
+                android:text="@string/prefs"
                 android:gravity="center_vertical" />
 
             <LinearLayout
@@ -44,22 +43,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <Button
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="68dp"
-                        android:text="Smoking" />
-                    <Button
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/smoking" />
+                    <RadioGroup
+                        android:id="@+id/pref_smoking_group"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Don't care" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Smoking" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Non Smoking" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/pref_smoking_dont_care"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/dont_care" />
+                        <RadioButton
+                            android:id="@+id/pref_smoking_smoking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/smoking" />
+                        <RadioButton
+                            android:id="@+id/pref_smoking_non_smoking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/non_smoking" />
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
@@ -67,22 +77,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <Button
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="68dp"
-                        android:text="Pets" />
-                    <Button
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/pets" />
+                    <RadioGroup
+                        android:id="@+id/pref_pets_group"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="No Pets" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Cats" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Dogs" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/pref_pets_no_pets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/no_pets" />
+                        <RadioButton
+                            android:id="@+id/pref_pets_cats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/cats" />
+                        <RadioButton
+                            android:id="@+id/pref_pets_dogs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/dogs" />
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,34 +111,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <Button
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="68dp"
-                        android:text="Family" />
-                    <Button
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/family" />
+                    <RadioGroup
+                        android:id="@+id/pref_family_group"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="2 Parents" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Mom" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Dad" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="1 Child" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="2 Children" />
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Other" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/pref_family_2_parents"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/two_parents" />
+                        <RadioButton
+                            android:id="@+id/pref_family_mom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/mom" />
+                        <RadioButton
+                            android:id="@+id/pref_family_dad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/dad" />
+                        <RadioButton
+                            android:id="@+id/pref_family_1_child"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/one_kid" />
+                        <RadioButton
+                            android:id="@+id/pref_family_2_children"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/two_kids" />
+                        <RadioButton
+                            android:id="@+id/pref_family_other"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/other_family" />
+                    </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
